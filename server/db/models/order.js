@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var Item = require('./item');
 
 var OrderSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' , required: true },
