@@ -8,5 +8,4 @@ var ItemSchema = new mongoose.Schema({
   inventory: { type: Number, required: true }
 })
 
-
 mongoose.model('Item', ItemSchema);
