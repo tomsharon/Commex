@@ -88,6 +88,42 @@ function grainGenerator () {
     return result;
 }
 
+function oilseedsGenerator(){
+  var oilseeds = ['Soybeans', 'Rapeseed', 'Palm Oil'];
+  var quality = ['Poor', 'Average', 'Above Average', 'Perfect'];
+  var result = [];
+  for(var i = 0; i < oilseeds.length; i++){
+    for(var j = 0; j < quality.length; j++){
+      result.push(quality[j] + ' ' + oilseeds[i])
+    }
+  }
+  return result;
+}
+
+function softsGenerator(){
+  var softs = ['Sugar', 'Coffee', 'Cocoa', 'Rubber', 'Citrus', 'Cotton'];
+  var quality = ['Poor', 'Average', 'Above Average', 'Perfect'];
+  var result = [];
+  for(var i = 0; i < softs.length; i++){
+    for(var j = 0; j < quality.length; j++){
+      result.push(quality[j] + ' ' + softs[i]);
+    }
+  }
+  return result;
+}
+
+function livestockGenerator(){
+  var livestock = ['Lean Hogs', 'Live Cattle'];
+  var quality = ['Poor', 'Average', 'Above Average', 'Perfect'];
+  var result = [];
+  for(var i = 0; i < livestock.length; i++){
+    for(var j = 0; j < quality.length; j++){
+      result.push(quality[j] + ' ' + livestock[i]);
+    }
+  }
+  return result;
+}
+
 connectToDb.then(function () {
     User.findAsync({}).then(function (users) {
         if (users.length === 0) {
