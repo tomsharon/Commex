@@ -22,6 +22,8 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
+var Item = Promise.promisifyAll(mongoose.model('Item'));
+var createdItems = [];
 
 var seedUsers = function () {
     var users = [];
@@ -49,14 +51,24 @@ function randomGenerator(){
   return rand.toString();
 }
 
+function seedItems (){
+  var items = [].concat(engergyGenerator()).concat(metalGenerator()).concat(grainGenerator()).concat(oilseedsGenerator()).concat(softsGenerator()).concat(livestockGenerator())
+  return Item.createAsync(items);
+}
+
 function engergyGenerator () {
     var engeries = ["Oil", "Natural Gas", "Electricity"]
     var quality = ['Poor', 'Average', 'Above Average', 'Pefect'];
-    var result = [];
-
+    var result = []
     for(var i = 0; i < engeries.length; i++){
         for(var j = 0; j < quality.length; j++){
-            result.push(quality[j] + " " + engeries[i])
+            result.push(new Item({
+              itemName: quality[j] + " " + engeries[i],
+              category: 'Energy',
+              price: parseInt(randomGenerator()) * 10,
+              unit: 'Kilowatts',
+              inventory: parseInt(randomGenerator()) * 10
+            }))
         }
     }
     return result;
@@ -69,7 +81,13 @@ function metalGenerator () {
 
     for(var i = 0; i < metals.length; i++){
         for(var j = 0; j < quality.length; j++){
-            result.push(quality[j] + " " + metals[i])
+          result.push(new Item({
+            itemName: quality[j] + " " + metals[i],
+            category: 'Metal',
+            price: parseInt(randomGenerator()) * 10,
+            unit: 'Metric Tons',
+            inventory: parseInt(randomGenerator()) * 10
+          }))
         }
     }
     return result;
@@ -82,7 +100,13 @@ function grainGenerator () {
 
     for(var i = 0; i < grains.length; i++){
         for(var j = 0; j < quality.length; j++){
-            result.push(quality[j] + " " + grains[i])
+          result.push(new Item({
+            itemName: quality[j] + " " + grains[i],
+            category: 'Grain',
+            price: parseInt(randomGenerator()) * 10,
+            unit: 'Bushels',
+            inventory: parseInt(randomGenerator()) * 10
+          }))
         }
     }
     return result;
@@ -94,7 +118,13 @@ function oilseedsGenerator(){
   var result = [];
   for(var i = 0; i < oilseeds.length; i++){
     for(var j = 0; j < quality.length; j++){
-      result.push(quality[j] + ' ' + oilseeds[i])
+      result.push(new Item({
+        itemName: quality[j] + " " + oilseeds[i],
+        category: 'Energy',
+        price: parseInt(randomGenerator()) * 10,
+        unit: 'Metric Tons',
+        inventory: parseInt(randomGenerator()) * 10
+      }))
     }
   }
   return result;
@@ -106,7 +136,13 @@ function softsGenerator(){
   var result = [];
   for(var i = 0; i < softs.length; i++){
     for(var j = 0; j < quality.length; j++){
-      result.push(quality[j] + ' ' + softs[i]);
+      result.push(new Item({
+        itemName: quality[j] + " " + softs[i],
+        category: 'Softs',
+        price: parseInt(randomGenerator()) * 10,
+        unit: 'Kilograms',
+        inventory: parseInt(randomGenerator()) * 10
+      }))
     }
   }
   return result;
@@ -118,7 +154,13 @@ function livestockGenerator(){
   var result = [];
   for(var i = 0; i < livestock.length; i++){
     for(var j = 0; j < quality.length; j++){
-      result.push(quality[j] + ' ' + livestock[i]);
+      result.push(new Item({
+        itemName: quality[j] + " " + livestock[i],
+        category: 'Live Stock',
+        price: parseInt(randomGenerator()) * 10,
+        unit: 'Heads',
+        inventory: parseInt(randomGenerator()) * 10
+      }));
     }
   }
   return result;
@@ -132,7 +174,18 @@ connectToDb.then(function () {
             console.log(chalk.magenta('Seems to already be user data, exiting!'));
             process.kill(0);
         }
-    }).then(function () {
+    }).then(function(){
+      return Item.findAsync({})
+    })
+    .then(function(items){
+      if(items.length === 0){
+        return seedItems()
+      } else {
+        console.log(chalk.magenta('Seems to already be item data, exiting!'));
+        process.kill(0);
+      }
+    })
+    .then(function () {
         console.log(chalk.green('Seed successful!'));
         process.kill(0);
     }).catch(function (err) {
