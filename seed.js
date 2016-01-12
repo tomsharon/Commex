@@ -24,21 +24,30 @@ var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 
 var seedUsers = function () {
+    var users = [];
+    var emails = [];
+    var password = 'password123';
 
-    var users = [
-        {
-            email: 'testing@fsa.com',
-            password: 'password'
-        },
-        {
-            email: 'obama@gmail.com',
-            password: 'potus'
-        }
-    ];
-
+    for(var i = 0; i < 100; i++){
+      users.push(new User({
+        email: 'user'+i+'@gmail.com',
+        password: 'password123',
+        salt: 'xyz',
+        isAdmin: false,
+        name: 'user'+i,
+        streetName: '123 fish street',
+        city: 'New York',
+        zipCode: 77379,
+        state: 'New York',
+      }));
+    }
     return User.createAsync(users);
-
 };
+
+function randomGenerator(){
+  var rand = Math.floor(Math.random() * 100) + 1
+  return rand.toString();
+}
 
 connectToDb.then(function () {
     User.findAsync({}).then(function (users) {

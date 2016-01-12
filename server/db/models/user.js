@@ -5,13 +5,41 @@ var _ = require('lodash');
 
 var schema = new mongoose.Schema({
     email: {
-        type: String
+        type: String,
+        required: true,
+        unique: true
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     salt: {
-        type: String
+        type: String,
+        required: true
+    },
+    isAdmin: {
+        type: Boolean,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    streetName: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    zipCode: {
+        type: Number,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
     },
     twitter: {
         id: String,
