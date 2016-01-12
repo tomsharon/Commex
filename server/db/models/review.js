@@ -8,4 +8,4 @@ var ReviewSchema = new mongoose.Schema({
   reviewAuthor:       { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 })
 
-mongoose.model('Review', ReviewSchema);
+module.exports = mongoose.model('Review', ReviewSchema);

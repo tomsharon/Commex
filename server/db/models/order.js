@@ -12,4 +12,4 @@ var OrderSchema = new mongoose.Schema({
   totalSpent: { type: Number, required: true }
 });
 
-mongoose.model('Order', OrderSchema);
+module.exports = mongoose.model('Order', OrderSchema);
