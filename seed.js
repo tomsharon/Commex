@@ -49,6 +49,45 @@ function randomGenerator(){
   return rand.toString();
 }
 
+function engergyGenerator () {
+    var engeries = ["Oil", "Natural Gas", "Electricity"]
+    var quality = ['Poor', 'Average', 'Above Average', 'Pefect'];
+    var result = [];
+
+    for(var i = 0; i < engeries.length; i++){
+        for(var j = 0; j < quality.length; j++){
+            result.push(quality[j] + " " + engeries[i])
+        }
+    }
+    return result;
+}
+
+function metalGenerator () {
+    var metals = ["Base Metals", " Precous Metals"]
+    var quality = ['Poor', 'Average', 'Above Average', 'Pefect'];
+    var result = [];
+
+    for(var i = 0; i < metals.length; i++){
+        for(var j = 0; j < quality.length; j++){
+            result.push(quality[j] + " " + metals[i])
+        }
+    }
+    return result;
+}
+
+function grainGenerator () {
+    var grains = ["Corn", "Wheat", "Barley", "Rice"]
+    var quality = ['Poor', 'Average', 'Above Average', 'Pefect'];
+    var result = [];
+
+    for(var i = 0; i < grains.length; i++){
+        for(var j = 0; j < quality.length; j++){
+            result.push(quality[j] + " " + grains[i])
+        }
+    }
+    return result;
+}
+
 connectToDb.then(function () {
     User.findAsync({}).then(function (users) {
         if (users.length === 0) {
