@@ -17,7 +17,7 @@
 
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemDetails text-center">
 			<h2>{{item.itemName}}</h2>
-			<p>{{item.blurb}}</p>
+			<div ng-repeat= 'desc in item.shortDescription'><p>{{desc}}</p></div>
 			<p>This {{item.itemName}}, a fine {{item.category}} product, is available for {{item.price}} per {{item.unit}}! We have {{item.inventory}} for sale.</p>
 		</div>
 

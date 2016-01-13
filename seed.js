@@ -24,7 +24,9 @@ var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Item = Promise.promisifyAll(mongoose.model('Item'));
 var createdItems = [];
-
+var quality = ['Poor', 'Average', 'Above Average', 'Perfect']
+var shortDescription = ['Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem.', 'Far far away, behind the word mountains, far from the house.', 'One morning, when Gregor Samsa woke from troubled dreams.', 'The quick, brown fox jumps over a lazy dog.'];
+var longDescription = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
 var seedUsers = function () {
     var users = [];
     var emails = [];
@@ -58,110 +60,107 @@ function seedItems (){
 
 function engergyGenerator () {
     var engeries = ["Oil", "Natural Gas", "Electricity"]
-    var quality = ['Poor', 'Average', 'Above Average', 'Pefect'];
+
     var result = []
     for(var i = 0; i < engeries.length; i++){
-        for(var j = 0; j < quality.length; j++){
             result.push(new Item({
-              itemName: quality[j] + " " + engeries[i],
+              itemName: engeries[i],
               category: 'Energy',
               price: parseInt(randomGenerator()) * 10,
               unit: 'Kilowatts',
-              inventory: parseInt(randomGenerator()) * 10
+              inventory: parseInt(randomGenerator()) * 10,
+              shortDescription: shortDescription,
+              longDescription: longDescription
             }))
-        }
     }
     return result;
 }
 
 function metalGenerator () {
     var metals = ["Base Metals", " Precous Metals"]
-    var quality = ['Poor', 'Average', 'Above Average', 'Pefect'];
+
     var result = [];
 
     for(var i = 0; i < metals.length; i++){
-        for(var j = 0; j < quality.length; j++){
           result.push(new Item({
-            itemName: quality[j] + " " + metals[i],
+            itemName: metals[i],
             category: 'Metal',
             price: parseInt(randomGenerator()) * 10,
             unit: 'Metric Tons',
-            inventory: parseInt(randomGenerator()) * 10
+            inventory: parseInt(randomGenerator()) * 10,
+            shortDescription: shortDescription,
+            longDescription: longDescription
           }))
-        }
     }
     return result;
 }
 
 function grainGenerator () {
     var grains = ["Corn", "Wheat", "Barley", "Rice"]
-    var quality = ['Poor', 'Average', 'Above Average', 'Pefect'];
+
     var result = [];
 
     for(var i = 0; i < grains.length; i++){
-        for(var j = 0; j < quality.length; j++){
           result.push(new Item({
-            itemName: quality[j] + " " + grains[i],
+            itemName: grains[i],
             category: 'Grain',
             price: parseInt(randomGenerator()) * 10,
             unit: 'Bushels',
-            inventory: parseInt(randomGenerator()) * 10
+            inventory: parseInt(randomGenerator()) * 10,
+            shortDescription: shortDescription,
+            longDescription: longDescription
           }))
-        }
     }
     return result;
 }
 
 function oilseedsGenerator(){
   var oilseeds = ['Soybeans', 'Rapeseed', 'Palm Oil'];
-  var quality = ['Poor', 'Average', 'Above Average', 'Perfect'];
   var result = [];
   for(var i = 0; i < oilseeds.length; i++){
-    for(var j = 0; j < quality.length; j++){
       result.push(new Item({
-        itemName: quality[j] + " " + oilseeds[i],
+        itemName: oilseeds[i],
         category: 'Energy',
         price: parseInt(randomGenerator()) * 10,
         unit: 'Metric Tons',
-        inventory: parseInt(randomGenerator()) * 10
+        inventory: parseInt(randomGenerator()) * 10,
+        shortDescription: shortDescription,
+        longDescription: longDescription
       }))
-    }
   }
   return result;
 }
 
 function softsGenerator(){
   var softs = ['Sugar', 'Coffee', 'Cocoa', 'Rubber', 'Citrus', 'Cotton'];
-  var quality = ['Poor', 'Average', 'Above Average', 'Perfect'];
   var result = [];
   for(var i = 0; i < softs.length; i++){
-    for(var j = 0; j < quality.length; j++){
       result.push(new Item({
-        itemName: quality[j] + " " + softs[i],
+        itemName: softs[i],
         category: 'Softs',
         price: parseInt(randomGenerator()) * 10,
         unit: 'Kilograms',
-        inventory: parseInt(randomGenerator()) * 10
+        inventory: parseInt(randomGenerator()) * 10,
+        shortDescription: shortDescription,
+        longDescription: longDescription
       }))
-    }
   }
   return result;
 }
 
 function livestockGenerator(){
   var livestock = ['Lean Hogs', 'Live Cattle'];
-  var quality = ['Poor', 'Average', 'Above Average', 'Perfect'];
   var result = [];
   for(var i = 0; i < livestock.length; i++){
-    for(var j = 0; j < quality.length; j++){
       result.push(new Item({
-        itemName: quality[j] + " " + livestock[i],
+        itemName: livestock[i],
         category: 'Live Stock',
         price: parseInt(randomGenerator()) * 10,
         unit: 'Heads',
-        inventory: parseInt(randomGenerator()) * 10
+        inventory: parseInt(randomGenerator()) * 10,
+        shortDescription: shortDescription,
+        longDescription: longDescription
       }));
-    }
   }
   return result;
 }
