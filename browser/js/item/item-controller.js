@@ -1,3 +1,4 @@
-app.controller('itemCtrl', function($scope, itemDetails, $state){
-	$scope.item = itemDetails($state.params.itemId);
+app.controller('itemCtrl', function($scope, $stateParams, $state, itemDetails){
+	console.log(itemDetails);
+	$scope.item = itemDetails;
 })

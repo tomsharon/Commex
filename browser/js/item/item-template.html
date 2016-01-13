@@ -1,8 +1,4 @@
 <div class="container-fluid main-content">
-<<<<<<< HEAD
-=======
-
->>>>>>> 492ae4d9328b2e508d45c51f3e74933bc67cea59
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" 
 			<ol class="breadcrumb">
 				<li>
@@ -14,36 +10,22 @@
 				<li class="active">Current</li>
 			</ol>
 		</div>
-<<<<<<< HEAD
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemImage">
-		image
-		</div>
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemDetails">
-		item details
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 description">
-			description
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 reviews">
-			reviews
-		</div>
-</div>
-=======
 
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemImage">
-		image
+		{{image}}
 		</div>
 
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemDetails">
-		item details
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemDetails text-center">
+			<h2>{{item.itemName}}</h2>
+			<p>{{item.blurb}}</p>
+			<p>This {{item.itemName}}, a fine {{item.category}} product, is available for {{item.price}} per {{item.unit}}! We have {{item.inventory}} for sale.</p>
 		</div>
 
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 description">
-			description
+			<p>{{item.description}}</p>
 		</div>
 
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 reviews">
-			reviews
+			<p>{{reviews}}</p>
 		</div>
 </div>
->>>>>>> 492ae4d9328b2e508d45c51f3e74933bc67cea59

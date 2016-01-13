@@ -4,12 +4,16 @@ app.config(function($stateProvider){
 		templateUrl: 'js/item/item-template.html',
 		controller: 'itemCtrl',
 		resolve: {
-			itemDetails: function(itemFactory){
+			itemDetails: function(itemFactory, $stateParams){
 				console.log("successfully ran itemDetails");
-				return itemFactory.getItem()
+				console.log(itemFactory.getItem());
+				return itemFactory.getItem($stateParams.itemId)
 				.then(function(data){
-					console.log(data);
-					return data;
+					console.log(data.data);
+					return data.data;
+				})
+				.catch(null, function(error){
+					console.log(error);
 				})
 			}
 		}
