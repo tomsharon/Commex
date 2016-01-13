@@ -1,0 +1,30 @@
+<div class="container-fluid main-content">
+		
+			<ol class="breadcrumb">
+				<li>
+					<a href="#">Home</a>
+				</li>
+				<li>
+					<a href="#">{{item.category}}</a>
+				</li>
+				<li class="active">{{item.itemName}}</li>
+			</ol>
+
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemImage">
+		Image Place holder{{image}}
+		</div>
+
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemDetails text-center">
+			<h2>{{item.itemName}}</h2>
+			<div ng-repeat= 'desc in item.shortDescription'><p>{{desc}}</p></div>
+			<p>This {{item.itemName}}, a fine {{item.category}} product, is available for {{item.price}} per {{item.unit}}! We have {{item.inventory}} for sale.</p>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 description">
+			<p>{{item.longDescription}}</p>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 reviews">
+			<p>{{reviews}}</p>
+		</div>
+</div>

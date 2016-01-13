@@ -54,4 +54,27 @@ module.exports = function (app) {
 
     });
 
+    // app.post('/signup', function (req, res, next){
+    //     console.log(req.body);
+    //     User.findOne({ email: req.body.email })
+    //     .then(function(user){
+    //         if(!user){
+    //             User.create({
+    //                 email: req.body.email,
+    //                 password: req.body.password,
+    //                 name: req.body.name,
+    //                 streetName: req.body.street + " " + req.body.apt,
+    //                 city: req.body.city,
+    //                 state: req.body.state,
+    //                 zipCode: req.body.zip
+    //             })
+    //             .then(function(createdUser){
+
+    //             })
+    //         }else{
+    //             res.redirect('/login', {})
+    //         }
+    //     })
+    // })
+
 };
