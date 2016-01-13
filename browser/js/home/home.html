@@ -1,6 +1,6 @@
 <section id="home">
-  <div ng-repeat="item in items | filter: { category: currentCategory }" class="items-container">
-    <a ui-sref="">
+  <div ng-repeat="item in items | filter:{ category: currentCategory }" class="items-container">
+    <a>
       <img src={{item.image}}>
       <div class="item-name">
         <h2>{{item.itemName}}</h2>

@@ -15,3 +15,7 @@ app.controller('HomeController', function ($scope, GetAllItems) {
       $scope.items = allItems;
     });
 });
+
+
+//LETS USE THE FILTERING APPROACH
+//AND ADD A RESOLVE on items
