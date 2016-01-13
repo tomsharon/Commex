@@ -1,4 +1,66 @@
+#categories-container {
+	background-color: white;
+}
+
 #categories-nav {
+	margin: 0 11vw;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	align-items: stretch;
+}
+
+
+#categories-nav > div {
+	margin: 10px auto;
+	padding: 0;
+}
+
+.category-image {
+	background-color: white;
+	text-align: center;
+}
+
+h4 {
+	display: inline-block;
+	color: #F5F5F5;
+}
+
+.category-name {
+	background-color: rgba(240, 240, 240, 0.5)
+}
+
+#Energy {
+	width: 24vh;
+	height: 12vh;	
+	background-image: url("/images/energy.jpg");
+}
+
+#Precious-Metals {	
+	width: 24vh;
+	height: 12vh;	
+	background-image: url("/images/precious-metals.jpg");
+}
+
+#Base-Metals {	
+	width: 24vh;
+	height: 12vh;	
+	background-image: url("/images/base-metals.jpg");
+}
+
+#Agriculture {	
+	width: 24vh;
+	height: 12vh;	
+	background-image: url("/images/agriculture.jpg");
+}
+
+#Softs {	
+	width: 24vh;
+	height: 12vh;	
+	background-image: url("/images/softs.jpg");
+}
+
+#Alternative-Energy {	
+	width: 24vh;
+	height: 12vh;
+	background-image: url("/images/alternative-energy.jpg");
 }
