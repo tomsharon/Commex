@@ -24,9 +24,11 @@ var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Item = Promise.promisifyAll(mongoose.model('Item'));
 var createdItems = [];
+//boilerplate data/options for each product
 var quality = ['Poor', 'Average', 'Above Average', 'Perfect']
 var shortDescription = ['Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem.', 'Far far away, behind the word mountains, far from the house.', 'One morning, when Gregor Samsa woke from troubled dreams.', 'The quick, brown fox jumps over a lazy dog.'];
 var longDescription = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
+//Seed Users
 var seedUsers = function () {
     var users = [];
     var emails = [];
@@ -52,12 +54,12 @@ function randomGenerator(){
   var rand = Math.floor(Math.random() * 100) + 1
   return rand.toString();
 }
-
+//Seed Items
 function seedItems (){
   var items = [].concat(engergyGenerator()).concat(metalGenerator()).concat(grainGenerator()).concat(oilseedsGenerator()).concat(softsGenerator()).concat(livestockGenerator())
   return Item.createAsync(items);
 }
-
+//Generate Energy Products
 function engergyGenerator () {
     var engeries = ["Oil", "Natural Gas", "Electricity"]
 
@@ -76,6 +78,7 @@ function engergyGenerator () {
     return result;
 }
 
+//Generate Metal Products
 function metalGenerator () {
     var metals = ["Base Metals", " Precous Metals"]
 
@@ -95,6 +98,7 @@ function metalGenerator () {
     return result;
 }
 
+//Generate Grain Products
 function grainGenerator () {
     var grains = ["Corn", "Wheat", "Barley", "Rice"]
 
@@ -114,6 +118,7 @@ function grainGenerator () {
     return result;
 }
 
+//Generate oilseeds Products
 function oilseedsGenerator(){
   var oilseeds = ['Soybeans', 'Rapeseed', 'Palm Oil'];
   var result = [];
@@ -131,6 +136,7 @@ function oilseedsGenerator(){
   return result;
 }
 
+//Generate Soft Products
 function softsGenerator(){
   var softs = ['Sugar', 'Coffee', 'Cocoa', 'Rubber', 'Citrus', 'Cotton'];
   var result = [];
@@ -148,6 +154,7 @@ function softsGenerator(){
   return result;
 }
 
+//Generate Livestock Products
 function livestockGenerator(){
   var livestock = ['Lean Hogs', 'Live Cattle'];
   var result = [];
@@ -165,6 +172,12 @@ function livestockGenerator(){
   return result;
 }
 
+var seedReviews = function () {
+  
+};
+
+
+//Connecting to Database and populating users, items, reviews, orders(tbd)
 connectToDb.then(function () {
     User.findAsync({}).then(function (users) {
         if (users.length === 0) {
