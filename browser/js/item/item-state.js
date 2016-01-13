@@ -1,11 +1,11 @@
 app.config(function($stateProvider){
 	$stateProvider.state('item', {
-		url: '/item/:itemId',
+		url: '/categories/:categoryName/:itemId',
 		templateUrl: 'js/item/item-template.html',
 		controller: 'itemCtrl',
 		resolve: {
 			itemDetails: function(itemFactory, $stateParams){
-				return itemFactory.getItem($stateParams.itemId)
+				return itemFactory.getItem($stateParams.categoryName, $stateParams.itemId)
 				.then(function(data){
 					return data.data;
 				})
