@@ -1,6 +1,17 @@
 app.config(function ($stateProvider) {
-    $stateProvider.state('home', {
+    $stateProvider.state('allItems', {
         url: '/',
-        templateUrl: 'js/home/home.html'
+        templateUrl: 'js/home/home.html',
+        controller: "HomeController"
+    })
+    .state("allItems.energy", {
+      url: '/energy'
+    })
+});
+
+app.controller('HomeController', function ($scope, GetAllItems) {
+  GetAllItems.getItems()
+    .then(function(allItems){
+      $scope.items = allItems;
     });
 });
