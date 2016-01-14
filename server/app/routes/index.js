@@ -12,6 +12,8 @@ router.use('/reviews', require('./reviews'));
 router.use('/orders', require('./orders'));
 // /api/items
 router.use('/items', require('./items'))
+// /api/users
+router.use('/users', require('./users'));
 // Make sure this is after all of
 // the registered routes!
 router.use(function (req, res) {
