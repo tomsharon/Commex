@@ -109,11 +109,14 @@ function seedOrders (){
   var orders = [];
   var allOrders = itemOrders();
   allOrders.forEach(function(order, idx){
-    console.log(totalOrderValue[idx])
+    var itemIds = [];
+    allOrders[idx].forEach(function(order){
+      itemIds.push(order._id);
+    });
     orders.push(new Order({
       userId: storedUsers[idx]._id,
       dateOrdered: Date.now(),
-      itemIds: allOrders[idx]._id,
+      itemIds: itemIds,
       totalSpent: totalOrderValue[idx]
     }))
   })

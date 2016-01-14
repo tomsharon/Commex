@@ -10,6 +10,8 @@ router.use('/categories', require('./categories'));
 router.use('/reviews', require('./reviews'));
 // /api/reviews
 router.use('/orders', require('./orders'));
+// /api/items
+router.use('/items', require('./items'))
 // Make sure this is after all of
 // the registered routes!
 router.use(function (req, res) {
