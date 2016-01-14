@@ -11,7 +11,7 @@ module.exports = function (app) {
     // the email and password to run the actual authentication logic.
     var strategyFn = function (email, password, done) {
         User.findOne({ email: email })
-            .then(function (user) {
+        .then(function (user) {
                 // user.correctPassword is a method from the User schema.
                 if (!user || !user.correctPassword(password)) {
                     done(null, false);
@@ -28,7 +28,6 @@ module.exports = function (app) {
 
     // A POST /login route is created to handle login.
     app.post('/login', function (req, res, next) {
-
         var authCb = function (err, user) {
 
             if (err) return next(err);
@@ -54,27 +53,42 @@ module.exports = function (app) {
 
     });
 
-    // app.post('/signup', function (req, res, next){
-    //     console.log(req.body);
-    //     User.findOne({ email: req.body.email })
-    //     .then(function(user){
-    //         if(!user){
-    //             User.create({
-    //                 email: req.body.email,
-    //                 password: req.body.password,
-    //                 name: req.body.name,
-    //                 streetName: req.body.street + " " + req.body.apt,
-    //                 city: req.body.city,
-    //                 state: req.body.state,
-    //                 zipCode: req.body.zip
-    //             })
-    //             .then(function(createdUser){
+    app.post('/signup', function (req, res, next){
 
-    //             })
-    //         }else{
-    //             res.redirect('/login', {})
-    //         }
-    //     })
-    // })
+        User.findOne({ email: req.body.email })
+        .then(function(user){
+            if(!user){
+                User.create({
+                    email: req.body.email,
+                    password: req.body.password,
+                    name: req.body.name,
+                    isAdmin: true, //not part of req.body....maybe create pre-save hook
+                    salt: 'xyz', //not part of req.body
+                    streetName: req.body.street + " " + req.body.apt,
+                    city: req.body.city,
+                    state: req.body.state,
+                    zipCode: req.body.zip
+                }).then(function(user){
+                    // req.logIn will establish our session.
+                    req.logIn(user, function (loginErr) {
+                        if (loginErr) return next(loginErr);
+                    // We respond with a response object that has user with _id and email.
+                        res.status(200).send({
+                            user: user.sanitize()
+                        });
+                    })
+                })
+            } else {
+                // req.logIn will establish our session.
+                req.logIn(user, function (loginErr) {
+                    if (loginErr) return next(loginErr);
+                    // We respond with a response object that has user with _id and email.
+                    res.status(200).send({
+                        user: user.sanitize()
+                    });
+                })
+            }
+        })
+    })
 
 };
