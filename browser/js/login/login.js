@@ -35,7 +35,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
         AuthService.signup(signupInfo).then(function () {
             $state.go('allItems');
         }).catch(function () {
-            $scope.error = 'Invalid signup credentials.';
+            $scope.error = 'This email already exists.';
         });
 
     };
