@@ -25,6 +25,7 @@ var User = Promise.promisifyAll(mongoose.model('User'));
 var Item = Promise.promisifyAll(mongoose.model('Item'));
 var Review = Promise.promisifyAll(mongoose.model('Review'));
 var Order = Promise.promisifyAll(mongoose.model('Order'));
+var Promo = Promise.promisifyAll(mongoose.model('Promo'));
 
 var createdItems = [];
 var storedUsers = [];
@@ -57,7 +58,21 @@ function itemOrders(){
   }
   return allOrders;
 }
-
+//Generate promos
+function promoGenerator() {
+  var allPromos = [];
+  for (var i = 0; i < 25; i++) {
+    var promoType;
+    var promoVal = starGenerator() * 5;
+    if (i % 2 === 0) { promoType = "percent" }
+    else { promoType = "dollars" };
+    allPromos.push(new Promo({
+      type: promoType,
+      value: promoVal
+    }));
+  }
+  return Promo.createAsync(allPromos);
+}
 //Seed Users
 var seedUsers = function () {
     var users = [];
@@ -265,7 +280,7 @@ connectToDb.then(function () {
       if(reviews.length === 0){
         return seedReviews();
       } else {
-        console.log(chalk.magenta('Seems to already be item data, exiting!'));
+        console.log(chalk.magenta('Seems to already be review data, exiting!'));
         process.kill(0);
       }
     })
@@ -276,7 +291,18 @@ connectToDb.then(function () {
       if(orders.length === 0){
         return seedOrders()
       } else {
-        console.log(chalk.magenta('Seems to already be item data, exiting!'));
+        console.log(chalk.magenta('Seems to already be order data, exiting!'));
+        process.kill(0);
+      }
+    })
+    .then(function(orders){
+      return Promo.findAsync();
+    })
+    .then(function(promos){
+      if(promos.length === 0){
+        return promoGenerator();
+      } else {
+        console.log(chalk.magenta('Seems to already be promo data, exiting!'));
         process.kill(0);
       }
     })
