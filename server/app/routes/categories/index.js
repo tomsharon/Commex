@@ -16,7 +16,7 @@ var ensureAuthenticated = function (req, res, next) {
 router.get("/", function(req, res, next) {
 	Item.find()
 		.then(function(allItems) {
-			res.json(allItems);
+			res.status(200).json(allItems);
 		})
 		.then(null, next)
 })
@@ -26,7 +26,7 @@ router.get("/:categoryName", function(req, res, next) {
 	console.log(req.params)
 	Item.find({ category: req.params.categoryName})
 		.then(function(categoryItems) {
-			res.json(categoryItems);
+			res.status(200).json(categoryItems);
 		})
 		.then(null, next)
 })
@@ -35,7 +35,7 @@ router.get("/:categoryName", function(req, res, next) {
 router.get("/:categoryName/:itemId", function(req, res, next) {
 	Item.findById(req.params.itemId)
 		.then(function(item) {
-			res.json(item);
+			res.status(200).json(item);
 		})
 		.then(null, next)
 })

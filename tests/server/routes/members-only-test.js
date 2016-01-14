@@ -1,6 +1,7 @@
 // Instantiate all models
 var mongoose = require('mongoose');
 require('../../../server/db/models');
+
 var User = mongoose.model('User');
 
 var expect = require('chai').expect;
@@ -38,7 +39,7 @@ describe('Members Route', function () {
 
 	});
 
-	describe('Authenticated request', function () {
+	xdescribe('Authenticated request', function () {
 
 		var loggedInAgent;
 
