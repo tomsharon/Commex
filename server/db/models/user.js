@@ -10,36 +10,30 @@ var schema = new mongoose.Schema({
         unique: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     salt: {
-        type: String,
-        required: true
+        type: String
     },
     isAdmin: {
         type: Boolean,
-        required: true
+        default: false
     },
     name: {
         type: String,
         required: true
     },
     streetName: {
-        type: String,
-        required: true
+        type: String
     },
     city: {
-        type: String,
-        required: true
+        type: String
     },
     zipCode: {
-        type: Number,
-        required: true
+        type: Number
     },
     state: {
-        type: String,
-        required: true
+        type: String
     },
     twitter: {
         id: String,

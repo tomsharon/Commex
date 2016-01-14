@@ -16,7 +16,7 @@ module.exports = function (app) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-
+        console.log("THIS IS GOOGLE'S PROFILE",profile)
         UserModel.findOne({ 'google.id': profile.id }).exec()
             .then(function (user) {
 
@@ -24,6 +24,8 @@ module.exports = function (app) {
                     return user;
                 } else {
                     return UserModel.create({
+                        email: profile.emails[0].value,
+                        name: profile.displayName,
                         google: {
                             id: profile.id
                         }
