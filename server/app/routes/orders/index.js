@@ -1,11 +1,11 @@
 'use strict';
 var router = require('express').Router();
 var mongoose = require('mongoose');
-var Item = mongoose.model('Item');
+var Order = mongoose.model('Order');
 
 //read all
 router.get('/', function(req, res, next){
-	Item.find().exec()
+	Order.find().exec()
 	.then(function(results){
 		res.send(results);
 	});
@@ -13,35 +13,35 @@ router.get('/', function(req, res, next){
 
 //create
 router.post('/', function(req, res, next){
-	Item.create(req.body).exec()
+	Order.create(req.body).exec()
 	.then(function(result){
 		res.status(201).send(result);
 	});
 });
 
 //read one
-router.get('/:itemId', function(req, res, next){
-	Item.findOne({ _id: req.params.itemId } ).exec()
+router.get('/:orderId', function(req, res, next){
+	Order.findOne({ _id: req.params.orderId } ).exec()
 	.then(function(result){
 		res.send(result);
 	});
 });
 
 //update
-router.put('/:itemId', function(req, res, next){
-	Item.findOne({ _id: req.params.itemId } ).exec()
+router.put('/:orderId', function(req, res, next){
+	Order.findOne({ _id: req.params.orderId } ).exec()
 	.then(function(result){
 		result = req.body;
 		return result.save()
 	})
-	.then(function(updatedItem){
-		res.status(200).send(updatedItem);
+	.then(function(updatedOrder){
+		res.status(200).send(updatedOrder);
 	})
 });
 
 //delete
-router.delete('/:itemId', function(req, res, next){
-	Item.findOne({ _id: req.params.itemId } ).remove().exec()
+router.delete('/:orderId', function(req, res, next){
+	Order.findOne({ _id: req.params.orderId } ).remove().exec()
 	.then(function(result){
 		res.sendStatus(200);
 	});

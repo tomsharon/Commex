@@ -23,11 +23,41 @@ var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Item = Promise.promisifyAll(mongoose.model('Item'));
+var Review = Promise.promisifyAll(mongoose.model('Review'));
+var Order = Promise.promisifyAll(mongoose.model('Order'));
+
 var createdItems = [];
+var storedUsers = [];
+var storedItems = [];
+var totalOrderValue = [];
+
 //boilerplate data/options for each product
 var quality = ['Poor', 'Average', 'Above Average', 'Perfect']
 var shortDescription = ['Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem.', 'Far far away, behind the word mountains, far from the house.', 'One morning, when Gregor Samsa woke from troubled dreams.', 'The quick, brown fox jumps over a lazy dog.'];
 var longDescription = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
+var dummyText = ["Geez, this commodity sucked", "I didn't like this commodity very much", "It was okay I guess, but not great", "Good product, could use some improvement", "TOTALLY AMAZEBALLS"]
+//Generate Star rating
+function starGenerator(){
+  var rand = Math.floor(Math.random() * 5) + 1
+  return rand;
+}
+//Generate items for Orders
+function itemOrders(){
+  var allOrders = [];
+  for(var i = 0; i < 25; i++){
+    var totalItems = [];
+    var sum = 0;
+    for(var j = 0; j < 2; j++){
+      var itemNum = starGenerator()
+      totalItems.push(storedItems[itemNum]);
+      sum = 100 * i;
+    }
+    allOrders.push(totalItems); 
+    totalOrderValue.push(sum);
+  }
+  return allOrders;
+}
+
 //Seed Users
 var seedUsers = function () {
     var users = [];
@@ -49,24 +79,58 @@ var seedUsers = function () {
     }
     return User.createAsync(users);
 };
-
 function randomGenerator(){
   var rand = Math.floor(Math.random() * 100) + 1
   return rand.toString();
 }
 //Seed Items
 function seedItems (){
-  var items = [].concat(engergyGenerator()).concat(metalGenerator()).concat(grainGenerator()).concat(oilseedsGenerator()).concat(softsGenerator()).concat(livestockGenerator())
+  var items = [].concat(energyGenerator()).concat(metalGenerator()).concat(grainGenerator()).concat(oilseedsGenerator()).concat(softsGenerator()).concat(livestockGenerator())
   return Item.createAsync(items);
 }
+//Seed Reviews
+function seedReviews () {
+  var reviews = []
+  storedItems.forEach(function(item, idx){
+    var rating = starGenerator();
+    reviews.push(new Review({
+      reviewRating: rating,
+      reviewDescription: dummyText[rating - 1],
+      reviewDate: Date.now(),
+      reviewAuthor: storedUsers[idx]._id,
+      reviewProduct: item._id
+    }))
+  })
+  return Review.createAsync(reviews);
+}
+
+//Seed Orders
+function seedOrders (){
+  var orders = [];
+  var allOrders = itemOrders();
+  allOrders.forEach(function(order, idx){
+    var itemIds = [];
+    allOrders[idx].forEach(function(order){
+      itemIds.push(order._id);
+    });
+    orders.push(new Order({
+      userId: storedUsers[idx]._id,
+      dateOrdered: Date.now(),
+      itemIds: itemIds,
+      totalSpent: totalOrderValue[idx]
+    }))
+  })
+  return Order.createAsync(orders);
+}
+
 //Generate Energy Products
-function engergyGenerator () {
-    var engeries = ["Oil", "Natural Gas", "Electricity"]
+function energyGenerator () {
+    var energies = ["Oil", "Natural Gas", "Electricity"]
 
     var result = []
-    for(var i = 0; i < engeries.length; i++){
+    for(var i = 0; i < energies.length; i++){
             result.push(new Item({
-              itemName: engeries[i],
+              itemName: energies[i],
               category: 'Energy',
               price: parseInt(randomGenerator()) * 10,
               unit: 'Kilowatts',
@@ -172,11 +236,6 @@ function livestockGenerator(){
   return result;
 }
 
-var seedReviews = function () {
-  
-};
-
-
 //Connecting to Database and populating users, items, reviews, orders(tbd)
 connectToDb.then(function () {
     User.findAsync({}).then(function (users) {
@@ -186,12 +245,36 @@ connectToDb.then(function () {
             console.log(chalk.magenta('Seems to already be user data, exiting!'));
             process.kill(0);
         }
-    }).then(function(){
+    }).then(function(users){
+      storedUsers = users;
       return Item.findAsync({})
     })
     .then(function(items){
       if(items.length === 0){
         return seedItems()
+      } else {
+        console.log(chalk.magenta('Seems to already be item data, exiting!'));
+        process.kill(0);
+      }
+    })
+    .then(function(items){
+      storedItems = items;
+      return Review.findAsync({});
+    })
+    .then(function(reviews){
+      if(reviews.length === 0){
+        return seedReviews();
+      } else {
+        console.log(chalk.magenta('Seems to already be item data, exiting!'));
+        process.kill(0);
+      }
+    })
+    .then(function(reviews){
+      return Order.findAsync({})
+    })
+    .then(function(orders){
+      if(orders.length === 0){
+        return seedOrders()
       } else {
         console.log(chalk.magenta('Seems to already be item data, exiting!'));
         process.kill(0);
