@@ -1,0 +1,82 @@
+navbar {
+
+  padding: 0px;
+
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 350;
+
+  h1.company-logo {
+    padding: 5px 0px 0px 0px;
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 0px;
+    text-align: center;
+    color: white;
+  }
+
+  display: block;
+  background: #9B1D20;
+  border-bottom: 1px solid #38040E;
+  box-shadow: 1px 1px 14px -3px black;
+
+  .container {
+    width: 91%;
+    max-width: 1340px;
+    padding: 12px 0px 0px 0px;
+  }
+
+  fullstack-logo {
+    margin-top: 5px;
+    margin-right: 20px;
+    width: 40px;
+  }
+
+  a {
+    color: white;
+    font-size: 18px;
+  }
+
+  .nav > li > a {
+    cursor: pointer;
+    transition: color 0.2s;
+    &.active {
+      color: darken(#640D14, 10%);
+    }
+    &:hover {
+      background: none;
+      color: #C9CAD9;
+    }
+    &:focus {
+      background: none;
+    }
+  }
+
+  .login-button {
+    color: #F5F5F5;
+    &:hover {
+      background: #F5F5F5;
+      color: #9B1D20;
+      font-weight: bold;
+    }
+    float: right;
+    border: 1px solid #F5F5F5;
+    margin-top: 10px;
+    background: none;
+    outline: none !important;
+    font-size: 16px;
+  }
+
+  .welcome {
+    float: right;
+    margin-top: 12px;
+    span {
+      color: black;
+      font-size: 16px;
+      margin-right: 5px;
+    }
+    a {
+      color: #f30046;
+      cursor: pointer;
+    }
+  }
+
+}
