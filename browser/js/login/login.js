@@ -18,11 +18,25 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
         $scope.error = null;
 
         AuthService.login(loginInfo).then(function () {
-            $state.go('home');
+            $state.go('allItems');
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
         });
 
     };
 
+    $scope.signup = {};
+    $scope.error = null;
+
+    $scope.sendSignup = function (signupInfo) {
+
+        $scope.error = null;
+
+        AuthService.signup(signupInfo).then(function () {
+            $state.go('allItems');
+        }).catch(function () {
+            $scope.error = 'This email already exists.';
+        });
+
+    };
 });

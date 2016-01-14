@@ -93,7 +93,7 @@
                     return $q.reject({ message: 'Invalid login credentials.' });
                 });
         };
-
+        //not part of FSA pre-build
         this.signup = function(credentials) {
             return $http.post('/signup', credentials)
             .then(onSuccessfulLogin)
