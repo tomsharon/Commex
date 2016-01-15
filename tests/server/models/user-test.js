@@ -97,13 +97,13 @@ describe('User model', function () {
 
         });
 
-        xdescribe('on creation', function () {
+        describe('on creation', function () {
 
             var encryptSpy;
             var saltSpy;
 
             var createUser = function () {
-                return User.create({ email: 'obama@gmail.com', password: 'potus' });
+                return User.create({ email: 'obama@gmail.com', password: 'potus', name: 'Barak Obama' });
             };
 
             beforeEach(function () {
