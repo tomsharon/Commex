@@ -82,7 +82,7 @@ describe("Category Routes", function() {
       testAgent.put("/api/items/" + testItem._id)
         .send(testItem)
         .expect(200)
-				.end();
+				.end(done);
     })
 
 		it("DELETES an item - /api/items/:itemId", function(done) {

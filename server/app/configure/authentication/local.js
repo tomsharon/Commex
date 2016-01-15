@@ -63,7 +63,6 @@ module.exports = function (app) {
                     password: req.body.password,
                     name: req.body.name,
                     isAdmin: true, //not part of req.body....maybe create pre-save hook
-                    salt: 'xyz', //not part of req.body
                     streetName: req.body.street + " " + req.body.apt,
                     city: req.body.city,
                     state: req.body.state,
@@ -84,6 +83,7 @@ module.exports = function (app) {
                 res.status(401).send(error)
             }
         })
+        next()
     })
 
 };

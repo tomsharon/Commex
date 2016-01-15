@@ -39,13 +39,14 @@ describe('Members Route', function () {
 
 	});
 
-	xdescribe('Authenticated request', function () {
+	describe('Authenticated request', function () {
 
 		var loggedInAgent;
 
 		var userInfo = {
 			email: 'joe@gmail.com',
-			password: 'shoopdawoop'
+			password: 'shoopdawoop',
+			name: 'Joe Schmoe'
 		};
 
 		beforeEach('Create a user', function (done) {

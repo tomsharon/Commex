@@ -55,13 +55,11 @@ router.put('/:itemId', function(req, res, next){
 
 
 	Item.update({ _id: req.params.itemId}, upsertData, {upsert: true}, function(err) {
-		console.log(arguments)
 		if(!err){
-			console.log('FURK')
-			return res.status(200).send();
+			res.status(200).send();
 		} else {
 			console.error(err);
-			return res.status(404).send();
+			res.status(404).send();
 		}
 	});
 
