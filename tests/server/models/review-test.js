@@ -8,9 +8,43 @@ var mongoose = require('mongoose');
 // Require in all models.
 require('../../../server/db/models');
 var User = mongoose.model('User');
-var Review = mongoose.model('Review')
+var Review = mongoose.model('Review');
+var Item = mongoose.model('Item');
 
 describe('Review model', function() {
+  var testUser;
+  User.create({
+    email: 'test@gmail.com',
+    password: 'testpass',
+    salt: 'test',
+    isAdmin: false,
+    name: 'Test User',
+    streetName: '123 Fake Street',
+    city: 'Fake City',
+    zipCode: 10069,
+    state: 'Fake State'
+  })
+    .then(function(user){
+      testUser = user;
+    }, function(err){
+      console.error(err);
+    })
+
+    var testItem;
+
+    Item.create({
+      itemName: "DummyItem",
+      category: "Energy",
+      price: 10,
+      unit: "kw",
+      inventory: 100,
+      shortDescription: "That good good"
+      })
+      .then(function(createdItem) {
+        testItem = createdItem;
+      }, function(err){
+        console.error(err);
+      })
 
   beforeEach('Establish DB connection', function(done){
     if(mongoose.connection.db) return done();
@@ -32,7 +66,8 @@ describe('Review model', function() {
       Review.create({
         reviewRating: 3,
         reviewDescription: 'Awesome stuff',
-        reviewAuthor: 1234
+        reviewAuthor: testUser._id,
+        reviewProduct: testItem._id
         })
         .then(function(createdItem) {
           testReview = createdReview;
