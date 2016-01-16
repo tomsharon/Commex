@@ -1,12 +1,53 @@
 #home {
-  fullstack-logo {
-    padding-top: 30px;
-    width: 150px;
-    margin: 0 auto;
+  font-family: 'Josefin Sans', sans-serif;
+
+  .banner {
+    height: 75vh;
+    width: 100vw;
+    background-image: url(/images/wheat.jpeg);
   }
-  h1 {
-    margin-top: 40px;
-    text-align: center;
+
+  p {
+    color: #a9afb5;
+  }
+  .features {
+    margin-top: 20px;
+  }
+  .popular{
+    padding: 20px;
+  }
+  .price{
+    display: inline;
+  }
+  i{
+    float:right;
+    font-size: 1.2em;
+  }
+
+  .featured-products{
+    margin-top: 60px
+  }
+
+  .featured-commodity{
+    padding-top: 15px;
+    border: 1px solid transparent;
+    background-color: #ffffff;
+  }
+  .email-signup{
+    border: 1px solid transparent;
+    padding:20px;
+    width: 100%;
+    background-color: #ffffff;
+    display:inline;
+
+    h3{
+      display: inline
+    }
+
+    .btn{
+      display: inline;
+      float: right;
+    }
+
   }
 }
-
