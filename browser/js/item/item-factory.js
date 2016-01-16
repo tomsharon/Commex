@@ -16,7 +16,8 @@ app.factory('itemFactory', function($http, AuthService){
 					})
 			}
 			else {
-				
+				//non-user orders need be stored in local storage
+				//use angular-local-storage-module
 			}
 		}
 	};

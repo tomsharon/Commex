@@ -1,5 +1,5 @@
 <section id="home">
-  <div ng-repeat="item in items | filter:{ category: currentCategory }" class="items-container">
+  <div ng-repeat="item in items | filter: currentCategory" class="items-container">
     <a>
       <img src={{item.image}}>
       <div class="item-name">
@@ -8,3 +8,5 @@
     </a>
   </div>
 </section>
+
+<!-- filter:{ category: currentCategory }" -->
