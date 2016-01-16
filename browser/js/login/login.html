@@ -1,50 +1,66 @@
-<form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
-
-    <alert type="danger" ng-show="error">
+<div class="container login-form">
+  <div class="col-md-6">
+    <form name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
+      <alert type="danger" ng-show="error">
         {{ error }}
-    </alert>
+      </alert>
 
-    <div class="form-group">
-    <h2>Already a member? Sign in here:</h2>
+      <h2 class="text-center">Already a member? Sign in here:</h2>
+      <div class="form-group">
         <label for="email">Email address</label>
         <input type="email" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
-    </div>
-    <div class="form-group">
+      </div>
+
+      <div class="form-group">
         <label for="login-password">Password</label>
         <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-default">Sign in</button>
-    <h1>Google Login:</h1>
-    <oauth-button provider-name="google"></oauth-button>
-</form>
+      </div>
 
-<form id="login-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
+      <button type="submit" class="btn btn-default">Sign in</button>
+
+    </form>
+  </div>
+    <div class="col-md-6">
+      <br>
+      <br>
+      <br>
+      <br>
+      <oauth-button class="btn btn-block" provider-name="Google"></oauth-button>
+    </div>
+  </div>
+
+
+  <form class="container" id="login-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
 
     <alert type="danger" ng-show="error">
-        {{ error }}
+      {{ error }}
     </alert>
 
     <div class="form-group">
-    <h2>Not a member? Join us!</h2>
-        <label for="email">Email address</label>
-        <input type="email" ng-model="signup.email" class="form-control" id="email" placeholder="Enter email">
+      <h2 class="text-center">Not a member? Join us!</h2>
+      <hr>
+      <label for="email">Email address</label>
+      <input type="email" ng-model="signup.email" class="form-control" id="email" placeholder="Enter email">
     </div>
     <div class="form-group">
-        <label for="signup-password">Password</label>
-        <input type="password" ng-model="signup.password" class="form-control" id="signup-password" placeholder="Password">
+      <label for="signup-password">Password</label>
+      <input type="password" ng-model="signup.password" class="form-control" id="signup-password" placeholder="Password">
     </div>
-        <div class="form-group">
-        <label for="signup-password">Name</label>
-        <input type="text" ng-model="signup.name" class="form-control" id="signup-password" placeholder="Name">
+    <div class="form-group">
+      <label for="signup-password">Name</label>
+      <input type="text" ng-model="signup.name" class="form-control" id="signup-password" placeholder="Name">
     </div>
-        <div class="form-group">
-        <label for="signup-password">Address</label>
-        <input type="text" ng-model="signup.street" class="form-control" id="signup-password" placeholder="Street Address">
-        <input type="text" ng-model="signup.apt" class="form-control" id="signup-password" placeholder="Apt/Unit/Suite">
-        <input type="text" ng-model="signup.city" class="form-control" id="signup-password" placeholder="City">
-        <input type="text" ng-model="signup.state" class="form-control" id="signup-password" placeholder="State">
-        <input type="text" ng-model="signup.zip" class="form-control" id="signup-password" placeholder="Zip">
+    <div class="form-group">
+      <label for="signup-password">Address</label>
+      <input type="text" ng-model="signup.street" class="form-control" id="signup-password" placeholder="Street Address">
+      <br>
+      <input type="text" ng-model="signup.apt" class="form-control" id="signup-password" placeholder="Apt/Unit/Suite">
+      <br>
+      <input type="text" ng-model="signup.city" class="form-control" id="signup-password" placeholder="City">
+      <br>
+      <input type="text" ng-model="signup.state" class="form-control" id="signup-password" placeholder="State">
+      <br>
+      <input type="text" ng-model="signup.zip" class="form-control" id="signup-password" placeholder="Zip">
     </div>
     <button type="submit" class="btn btn-default">Sign up</button>
-    
-</form>
+  </form>
