@@ -5,7 +5,10 @@ var Order = mongoose.model('Order');
 
 //read all
 router.get('/', function(req, res, next){
-	Order.find().exec()
+	//if req.query is defined, fetch accordingly
+	//else req.query is an empty object, so find all
+	// Order.find(req.query).exec()
+	Order.find(req.query).populate("items")
 	.then(function(results){
 		res.send(results);
 	});
@@ -29,13 +32,15 @@ router.get('/:orderId', function(req, res, next){
 
 //update
 router.put('/:orderId', function(req, res, next){
-	Order.findOne({ _id: req.params.orderId } ).exec()
-	.then(function(result){
-		result = req.body;
-		return result.save()
-	})
-	.then(function(updatedOrder){
-		res.status(200).send(updatedOrder);
+	//Matt & Tom's Sunday
+	//May be best practice for all PUT routes
+	Order.update({_id: req.params.orderId}, req.body, function(err) {
+		if(!err){
+			res.status(200).send("Updated order successfully!");
+		} else {
+			console.error(err);
+			res.status(404).send();
+		}
 	})
 });
 
