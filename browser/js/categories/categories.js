@@ -3,4 +3,4 @@ app.config(function ($stateProvider) {
         url: '/categories',
         templateUrl: 'js/categories/categories.html'
     })
-})
+});

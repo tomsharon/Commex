@@ -9,6 +9,7 @@ app.factory('cartFactory', function($http, AuthService, localStorageService){
 					if(user) {
 						return $http.get("/api/orders?user=" + user._id + "&status=Incomplete")
 							.then(function(response) {
+								console.log("This is response.data", response.data)
 								return response.data[0].items
 							})
 

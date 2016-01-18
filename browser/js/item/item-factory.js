@@ -3,7 +3,7 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 		getItem: function(categoryName, itemId){
 			return $http.get('/api/categories/' + categoryName + '/' + itemId)
 		},
-		addToCart: function(itemId) {
+		addToCart: function(itemId, itemQuantity) {
 			var user;
 			AuthService.getLoggedInUser()
 				.then(function (loggedInUser) {
@@ -20,7 +20,20 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 								if(arrayOfOrders[0]) {
 
 									var updatedOrderItems = arrayOfOrders[0].items;
-									updatedOrderItems.push(itemId)
+
+									console.log("this is updatedOrderItems",updatedOrderItems)
+
+									var alreadyInCart = false
+									updatedOrderItems.forEach(function(item) {
+										// console.log("this is item",item)
+										if(itemId === item.item._id) {
+											alreadyInCart = true;
+											item.item.quantity += itemQuantity;
+											break;
+										}
+									})
+
+									if(alreadyInCart === false) updatedOrderItems.push({ item: itemId, quantity: itemQuantity });
 
 									return $http.put("/api/orders/" + arrayOfOrders[0]._id, {items: updatedOrderItems})
 										.then(function(response) {
@@ -32,7 +45,7 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 								//else, create new order and persist to DB
 								else {
 									console.log("Creating new order...")
-									return $http.post("/api/orders", {items: [itemId], user: user._id})
+									return $http.post("/api/orders", {items: [{ item: itemId, quantity: itemQuantity }], user: user._id})
 										.then(function(response) {
 											return response.data
 										})									
@@ -43,12 +56,14 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 					else {
 
 						var orders = localStorageService.get("orders")
+						var itemInfo = { item: itemId, quantity: itemQuantity };
+						console.log(itemInfo);
 
 						if(!orders) {
-							localStorageService.set("orders", [itemId])
+							localStorageService.set("orders", [itemInfo])
 						}
 						else {
-							orders.push(itemId)
+							orders.push(itemInfo)
 							localStorageService.set("orders", orders)
 						}
 
