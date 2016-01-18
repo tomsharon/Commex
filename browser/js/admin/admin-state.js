@@ -4,6 +4,9 @@ app.config(function($stateProvider){
 		url: '/admin',
 		templateUrl: 'js/admin/admin.html',
 		controller: 'adminCtrl',
+		data: {
+			authenticate: true
+		},
 		resolve: {
 			allUsers: function(adminFactory, $stateParams){
 				return adminFactory.getAllUsers()
@@ -14,30 +17,19 @@ app.config(function($stateProvider){
 				.catch(null, function(error){
 					console.log(error);
 				})
-			},
-      allItems: function(adminFactory, $stateParams){
-        return adminFactory.getAllItems()
-        .then(function(items){
-          console.log('All Items done got had')
-          return items.data;
-        })
-        .catch(null, function(error){
-          console.log(error);
-        })
-      }
+			}
 		}
 	})
   .state('editUser', {
     url: '/admin/edituser/:userId',
     templateUrl: 'js/admin/edit-user.html',
-    controller: function($scope){
-      $scope.currentUser = getUser || null;
-    },
+    controller: 'editUserCtrl',
     resolve: {
       getUser: function(adminFactory, $stateParams){
         console.log('Getting user: ', $stateParams.userId);
         return adminFactory.getUser($stateParams.userId)
         .then(function(user){
+					console.log('Inside the then statement');
           return user.data
         })
         .catch(null, function(error){
@@ -46,4 +38,20 @@ app.config(function($stateProvider){
       }
     }
   })
+	.state('items', {
+		url: '/admin/items',
+		templateUrl: 'js/admin/items/items.html',
+		controller: 'itemsCtrl',
+		resolve: {
+			allItems: function(adminFactory, $stateParams){
+				return adminFactory.getAllItems()
+				.then(function(items){
+					return items.data;
+				})
+				.catch(null, function(error){
+					console.log(error);
+				})
+			}
+		}
+	})
 })

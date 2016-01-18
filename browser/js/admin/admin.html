@@ -11,7 +11,7 @@
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.isAdmin }}</td>
-          <td><button>Edit</button></td>
+          <td><button ui-sref="editUser({ userId: user._id })">Edit</button></td>
         </tr>
       </table>
   </div>

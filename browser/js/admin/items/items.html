@@ -1,0 +1,20 @@
+<section id="admin-panel">
+  <div class="col-xs-12 col-s-10 col-md-8 col-s-offset-1 col-md-offset-2">
+      <table style="width: 100%" class="text-center">
+        <tr style="background-color: grey">
+          <td>Name</td>
+          <td>Category</td>
+          <td>Price</td>
+          <td>Inventory</td>
+          <td>Edit</td>
+        </tr>
+        <tr ng-repeat="item in items">
+          <td>{{ item.itemName }}</td>
+          <td>{{ item.category }}</td>
+          <td>{{ item.price }}</td>
+          <td>{{item.inventory}}</td>
+          <td><button ui-sref="editItem({ itemId: item._id })">Edit</button></td>
+        </tr>
+      </table>
+  </div>
+</section>

@@ -8,7 +8,8 @@ router.get('/', function(req, res, next){
 	//if req.query is defined, fetch accordingly
 	//else req.query is an empty object, so find all
 	// Order.find(req.query).exec()
-	Order.find(req.query).populate("items")
+	console.log(req.query)
+	Order.find(req.query).populate("items").populate("user")
 	.then(function(results){
 		res.send(results);
 	});
