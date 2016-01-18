@@ -53,7 +53,7 @@ function itemOrders(){
       totalItems.push(storedItems[itemNum]);
       sum = 100 * i;
     }
-    allOrders.push(totalItems); 
+    allOrders.push(totalItems);
     totalOrderValue.push(sum);
   }
   return allOrders;
@@ -78,6 +78,18 @@ var seedUsers = function () {
     var users = [];
     var emails = [];
     var password = 'password123';
+
+    users.push(new User({
+      email:        'admin@gmail.com',
+      password:     'admin123',
+      salt:         'xyz',
+      isAdmin:      true,
+      name:         'Super Admin',
+      streetName:   '123 Super Admin Ave',
+      city:         'Palo Alto',
+      zipCode:      '31415',
+      state:        'California'
+    }));
 
     for(var i = 0; i < 100; i++){
       users.push(new User({

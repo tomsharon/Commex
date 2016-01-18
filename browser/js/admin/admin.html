@@ -1,0 +1,18 @@
+<section id="admin-panel">
+  <div class="col-xs-12 col-s-10 col-md-8 col-s-offset-1 col-md-offset-2">
+      <table style="width: 100%" class="text-center">
+        <tr style="background-color: grey">
+          <td>Name</td>
+          <td>Email</td>
+          <td>Admin?</td>
+          <td>Edit</td>
+        </tr>
+        <tr ng-repeat="user in users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.isAdmin }}</td>
+          <td><button>Edit</button></td>
+        </tr>
+      </table>
+  </div>
+</section>
