@@ -3,6 +3,12 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 		getItem: function(categoryName, itemId){
 			return $http.get('/api/categories/' + categoryName + '/' + itemId)
 		},
+		getReviews: function(reviewId){
+			return $http.get('api/reviews/' + reviewId);
+		},
+		addReview: function(review){
+			return $http.post('api/reviews/', review);
+		},
 		addToCart: function(itemId) {
 			var user;
 			AuthService.getLoggedInUser()
@@ -35,7 +41,7 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 									return $http.post("/api/orders", {items: [itemId], user: user._id})
 										.then(function(response) {
 											return response.data
-										})									
+										})
 								}
 							})
 					}
@@ -57,7 +63,7 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 
 						//To clear local storage:
 						// return localStorageService.clearAll()
-					}				    
+					}
 				});
 		}
 	};
