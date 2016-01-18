@@ -20,7 +20,20 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 								if(arrayOfOrders[0]) {
 
 									var updatedOrderItems = arrayOfOrders[0].items;
-									updatedOrderItems.push({ item: itemId, quantity: itemQuantity });
+
+									console.log("this is updatedOrderItems",updatedOrderItems)
+
+									var alreadyInCart = false
+									updatedOrderItems.forEach(function(item) {
+										// console.log("this is item",item)
+										if(itemId === item.item._id) {
+											alreadyInCart = true;
+											item.item.quantity += itemQuantity;
+											break;
+										}
+									})
+
+									if(alreadyInCart === false) updatedOrderItems.push({ item: itemId, quantity: itemQuantity });
 
 									return $http.put("/api/orders/" + arrayOfOrders[0]._id, {items: updatedOrderItems})
 										.then(function(response) {

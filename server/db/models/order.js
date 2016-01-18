@@ -17,7 +17,18 @@ var OrderSchema = new mongoose.Schema({
 
 
 //Add totalSpent virtual
+OrderSchema.virtual('totalPrice').get(function() {
+	var total = 0;
+	this.items.forEach(function(item) {
+		total += item.price;
+	})
+	return total;
+})
+
+
+
+//PRESAVE HOOK TO SAVE TOTAL SPENT 
+
 
 module.exports = mongoose.model('Order', OrderSchema);
 
-items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item', required: true }]

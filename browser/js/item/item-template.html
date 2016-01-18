@@ -20,7 +20,12 @@
 		<div ng-repeat='desc in item.shortDescription'>
 			<li><p>{{desc}}</p></li>
 		</div>
-		<button type="button" class="btn btn-info">
+		<div class="form-group">
+		  	<label for="sel1">Quantity:</label>
+		  	<select class="form-control" id="sel1" ng-model="quantity" ng-options="number for number in Range(1, available)">
+		    </select>
+		</div>
+		<button ng-click="addToCart(item._id, quantity)" type="button" class="btn btn-info">
 			<i class="glyphicon glyphicon-shopping-cart"></i>
 			Add to Cart
 		</button>
@@ -50,11 +55,11 @@
 	</div>
 </div>
  	<div class="form-group">
-  	<label for="sel1">Select list:</label>
-  	<select class="form-control" id="sel1" ng-model="quantity">
-    		<option ng-repeat='number in Range(1, available)' value="{{number}}">{{number}}</option>
-    </select>
-</div>
-		<button ng-click="addToCart(item._id, quantity)" class="btn btn-lg btn-primary">Add to cart</button>
+	  	<label for="sel1">Select list:</label>
+	  	<select class="form-control" id="sel1" ng-model="quantity">
+	    		<option ng-repeat='number in Range(1, available)' value="{{number}}">{{number}}</option>
+	    </select>
+	</div>
+		<!-- <button ng-click="addToCart(item._id, quantity)" class="btn btn-lg btn-primary">Add to cart</button> -->
 		<!-- <button ng-click="authclick()" class="btn btn-lg btn-primary">Add to cart</button> -->	
 </div>
