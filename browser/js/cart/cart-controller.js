@@ -2,7 +2,6 @@ app.controller('cartCtrl', function($scope, $state, cartFactory){
 
 	cartFactory.getCart()
 		.then(function(cart) {
-			console.log("This is the cart", cart)
 			$scope.cart = cart
 		})
 	

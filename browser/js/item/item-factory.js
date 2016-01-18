@@ -20,20 +20,19 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 								if(arrayOfOrders[0]) {
 
 									var updatedOrderItems = arrayOfOrders[0].items;
-
-									console.log("this is updatedOrderItems",updatedOrderItems)
-
 									var alreadyInCart = false
 									updatedOrderItems.forEach(function(item) {
 										// console.log("this is item",item)
 										if(itemId === item.item._id) {
+											console.log(item);
 											alreadyInCart = true;
-											item.item.quantity += itemQuantity;
-											break;
+											item.quantity += itemQuantity;
 										}
 									})
 
-									if(alreadyInCart === false) updatedOrderItems.push({ item: itemId, quantity: itemQuantity });
+									if(!alreadyInCart) {
+										updatedOrderItems.push({ item: itemId, quantity: itemQuantity });
+									}
 
 									return $http.put("/api/orders/" + arrayOfOrders[0]._id, {items: updatedOrderItems})
 										.then(function(response) {
@@ -44,7 +43,6 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 								}
 								//else, create new order and persist to DB
 								else {
-									console.log("Creating new order...")
 									return $http.post("/api/orders", {items: [{ item: itemId, quantity: itemQuantity }], user: user._id})
 										.then(function(response) {
 											return response.data
@@ -57,13 +55,21 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 
 						var orders = localStorageService.get("orders")
 						var itemInfo = { item: itemId, quantity: itemQuantity };
-						console.log(itemInfo);
+						var alreadyInLocalStorage = false;
 
 						if(!orders) {
 							localStorageService.set("orders", [itemInfo])
 						}
 						else {
-							orders.push(itemInfo)
+							orders.forEach(function(item){
+								if(itemId === item.item){
+									alreadyInLocalStorage = true;
+									item.quantity += itemQuantity;
+								}
+							})
+							if (!alreadyInLocalStorage){
+								orders.push(itemInfo);
+							}
 							localStorageService.set("orders", orders)
 						}
 

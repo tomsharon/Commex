@@ -16,10 +16,18 @@ app.factory('cartFactory', function($http, AuthService, localStorageService){
 					}
 					//Non-logged-in users
 					else {
-						return localStorageService.get("orders")
+						var orders = localStorageService.get("orders")
+						var promiseArray = [];
+						orders.forEach(function(item) {
+							promiseArray.push($http.get("/api/items/" + item.item).then(function(response){
+								return response.data;
+							}));
+						});
+						return Promise.all(promiseArray);
 					}
 				})
-		},
+			},
+
 		checkout: function(cart) {
 
 		}
