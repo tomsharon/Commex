@@ -14,6 +14,8 @@ app.controller('HomeController', function ($scope, GetAllItems) {
     .then(function(allItems){
       $scope.items = allItems;
     });
+
+    $scope.currentCategory;
 });
 
 

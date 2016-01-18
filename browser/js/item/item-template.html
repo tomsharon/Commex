@@ -35,6 +35,7 @@
 			<p>{{item.longDescription}}</p>
 		</div>
 
+
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 reviews">
 		<h3 class="text-center">Reviews</h3>
 		<!-- use ng-repeat to populate reviews here -->
@@ -48,4 +49,7 @@
 		</form>
 	</div>
 </div>
+		<button ng-click="addToCart(item._id)" class="btn btn-lg btn-primary">Add to cart</button>
+		<!-- <button ng-click="authclick()" class="btn btn-lg btn-primary">Add to cart</button> -->	
+
 </div>
