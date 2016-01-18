@@ -53,7 +53,7 @@ function itemOrders(){
       totalItems.push(storedItems[itemNum]);
       sum = 100 * i;
     }
-    allOrders.push(totalItems); 
+    allOrders.push(totalItems);
     totalOrderValue.push(sum);
   }
   return allOrders;
@@ -100,7 +100,7 @@ function randomGenerator(){
 }
 //Seed Items
 function seedItems (){
-  var items = [].concat(energyGenerator()).concat(metalGenerator()).concat(grainGenerator()).concat(oilseedsGenerator()).concat(softsGenerator()).concat(livestockGenerator())
+  var items = [].concat(energyGenerator()).concat(BaseMetalGenerator()).concat(grainGenerator()).concat(oilseedsGenerator()).concat(softsGenerator()).concat(livestockGenerator()).concat(PreciousMetalGenerator())
   return Item.createAsync(items);
 }
 //Seed Reviews
@@ -158,15 +158,15 @@ function energyGenerator () {
 }
 
 //Generate Metal Products
-function metalGenerator () {
-    var metals = ["Base Metals", " Precous Metals"]
+function BaseMetalGenerator () {
+    var metals = ["Copper", "Zinc", "Aluminium","Lead"]
 
     var result = [];
 
     for(var i = 0; i < metals.length; i++){
           result.push(new Item({
             itemName: metals[i],
-            category: 'Metal',
+            category: 'Base Metals',
             price: parseInt(randomGenerator()) * 10,
             unit: 'Metric Tons',
             inventory: parseInt(randomGenerator()) * 10,
@@ -176,6 +176,27 @@ function metalGenerator () {
     }
     return result;
 }
+
+function PreciousMetalGenerator () {
+    var preciousMetals = ["Gold","Silver","Platinum"]
+
+    var result = [];
+
+    for(var i = 0; i < preciousMetals.length; i++){
+          result.push(new Item({
+            itemName: preciousMetals[i],
+            category: 'Precious Metals',
+            price: parseInt(randomGenerator()) * 10,
+            unit: 'Metric Tons',
+            inventory: parseInt(randomGenerator()) * 10,
+            shortDescription: shortDescription,
+            longDescription: longDescription
+          }))
+    }
+    return result;
+}
+
+
 
 //Generate Grain Products
 function grainGenerator () {
