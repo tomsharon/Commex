@@ -11,7 +11,6 @@ app.config(function($stateProvider){
 			allUsers: function(adminFactory, $stateParams){
 				return adminFactory.getAllUsers()
 				.then(function(users){
-          console.log('All Users done got had')
 					return users.data;
 				})
 				.catch(null, function(error){
@@ -24,12 +23,13 @@ app.config(function($stateProvider){
     url: '/admin/edituser/:userId',
     templateUrl: 'js/admin/edit-user.html',
     controller: 'editUserCtrl',
+		data: {
+			authenticate: true
+		},
     resolve: {
       getUser: function(adminFactory, $stateParams){
-        console.log('Getting user: ', $stateParams.userId);
         return adminFactory.getUser($stateParams.userId)
         .then(function(user){
-					console.log('Inside the then statement');
           return user.data
         })
         .catch(null, function(error){
@@ -42,6 +42,9 @@ app.config(function($stateProvider){
 		url: '/admin/items',
 		templateUrl: 'js/admin/items/items.html',
 		controller: 'itemsCtrl',
+		data: {
+			authenticate: true
+		},
 		resolve: {
 			allItems: function(adminFactory, $stateParams){
 				return adminFactory.getAllItems()
@@ -52,6 +55,36 @@ app.config(function($stateProvider){
 					console.log(error);
 				})
 			}
+		}
+	})
+	.state('editItem', {
+		url: '/admin/items/:itemId',
+		templateUrl: 'js/admin/items/edit-item.html',
+		controller: 'editItemCtrl',
+		data: {
+			authenticate: true
+		},
+		resolve: {
+			getItem: function(adminFactory, $stateParams){
+				return adminFactory.getItem($stateParams.itemId)
+				.then(function(item){
+					return item.data
+				})
+				.catch(null, function(error){
+					console.log(error)
+				})
+			}
+		}
+	})
+	.state('createItem',{
+		url: '/admin/items/create',
+		templateUrl: 'js/admin/items/create-item.html',
+		controller: 'createItemCtrl',
+		data: {
+			authenticate: true
+		},
+		resolve: {
+			console.log('hello');
 		}
 	})
 })
