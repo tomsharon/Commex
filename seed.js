@@ -126,7 +126,8 @@ function seedOrders (){
   allOrders.forEach(function(order, idx){
     var items = [];
     allOrders[idx].forEach(function(order){
-      items.push(order._id);
+      var quantity = starGenerator();
+      items.push({item: order._id, quantity: quantity});
     });
     orders.push(new Order({
       user: storedUsers[idx]._id,

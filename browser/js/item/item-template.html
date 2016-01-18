@@ -49,7 +49,12 @@
 		</form>
 	</div>
 </div>
-		<button ng-click="addToCart(item._id)" class="btn btn-lg btn-primary">Add to cart</button>
+ 	<div class="form-group">
+  	<label for="sel1">Select list:</label>
+  	<select class="form-control" id="sel1" ng-model="quantity">
+    		<option ng-repeat='number in Range(1, available)' value="{{number}}">{{number}}</option>
+    </select>
+</div>
+		<button ng-click="addToCart(item._id, quantity)" class="btn btn-lg btn-primary">Add to cart</button>
 		<!-- <button ng-click="authclick()" class="btn btn-lg btn-primary">Add to cart</button> -->	
-
 </div>
