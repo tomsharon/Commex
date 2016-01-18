@@ -16,9 +16,9 @@
               <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
           </li>
       </ul>
-      <a class="navbar-brand" href="#">Commex</a>
+      <a class="navbar-brand" ui-sref="home">Commex</a>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Cart</a></li>
+        <li><a ui-sref='cart'>Cart</a></li>
         <li><form class="navbar-form" role="search">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Search">
