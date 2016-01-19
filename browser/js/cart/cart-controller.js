@@ -20,7 +20,11 @@ app.controller('cartCtrl', function($scope, $state, cartFactory, localStorageSer
 		})
 
 	$scope.applyPromo = function(code, price) {
-		$scope.totalPrice = cartFactory.applyPromo(code, price)
+		return cartFactory.applyPromo(code, price)
+			.then(function(newTotalPrice) {
+				console.log("This is newTotalPrice", newTotalPrice)
+				$scope.totalPrice = newTotalPrice
+			})
 	}
 
 	$scope.checkOut = cartFactory.checkOut

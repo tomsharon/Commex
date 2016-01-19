@@ -38,15 +38,26 @@ app.factory('cartFactory', function($http, AuthService, localStorageService, $st
 			return total;
 		},		
 		applyPromo: function(code, originalTotalPrice) {
-			if(code.includes("BUCKS")) {
-				var dollarsOff = Number(code.replace("BUCKS", ""))
-				return originalTotalPrice - dollarsOff
-			}
-			if(code.includes("PERC")) {
-				var percentOff = Number(code.replace("PERC", ""))
-				var percentUserWillPay = (100 - percentOff) / 100
-				return originalTotalPrice * percentUserWillPay
-			}
+			// if(code.includes("BUCKS")) {
+			// 	var dollarsOff = Number(code.replace("BUCKS", ""))
+			// 	return originalTotalPrice - dollarsOff
+			// }
+			// if(code.includes("PERC")) {
+			// 	var percentOff = Number(code.replace("PERC", ""))
+			// 	var percentUserWillPay = (100 - percentOff) / 100
+			// 	return originalTotalPrice * percentUserWillPay
+			// }
+			return $http.get("/api/promos")
+				.then(function(response) {
+					for(var i = 0; i < response.data.length; i++) {
+						if(code === response.data[i].code) {
+							var percentUserWillPay = (100 - response.data[i].value) / 100
+							console.log("This is percentUserWillPay", percentUserWillPay)
+							console.log("This is originalTotalPrice", originalTotalPrice)
+							return originalTotalPrice * percentUserWillPay;
+						}
+					}
+				})
 		},
 		checkOut: function(cart, totalPrice, promoCode, nonLoggedInUser, orderId) {
 			// console.log("this is the cart", cart)
