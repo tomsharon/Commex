@@ -17,7 +17,10 @@ router.use('/users', require('./users'));
 // /api/promos
 router.use('/promos', require('./promos'));
 // /api/admin
-router.use('/admin', require('./admin'))
+router.use('/admin', require('./admin'));
+// /api/thankyou
+router.use('/thankyou', require('./thankyou'));
+
 // Make sure this is after all of
 // the registered routes!
 router.use(function (req, res) {

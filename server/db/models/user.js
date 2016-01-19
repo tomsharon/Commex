@@ -26,6 +26,9 @@ var schema = new mongoose.Schema({
     streetName: {
         type: String
     },
+    apt: {
+        type: String
+    },
     city: {
         type: String
     },

@@ -1,4 +1,4 @@
-app.factory('cartFactory', function($http, AuthService, localStorageService){
+app.factory('cartFactory', function($http, AuthService, localStorageService, $state){
 	return {
 		getCart: function() {
 			var user;
@@ -48,10 +48,48 @@ app.factory('cartFactory', function($http, AuthService, localStorageService){
 				return originalTotalPrice * percentUserWillPay
 			}
 		},
-		checkOut: function(cart, totalPrice, promoCode) {
-			$http.post("/api/orders", {})
-			//pass in params as req.body
-			//problem is... how do we pass the user?
+		checkOut: function(cart, totalPrice, promoCode, nonLoggedInUser, orderId) {
+			// console.log("this is the cart", cart)
+			var user;
+			AuthService.getLoggedInUser()
+				.then(function(loggedInUser) {
+					user = loggedInUser
+					//Logged in users:
+					if(user) {
+						$http.put("/api/orders/" + orderId, {
+							status: "Placed",
+							user: user,
+							items: cart,
+							promo: promoCode, 
+							totalPrice: totalPrice
+						})
+						.then(function() {
+							$state.go("thankYou");
+							$http.post("/api/thankyou", {name: user.name, email: user.email, cart: cart, totalPrice: totalPrice})
+						})
+					}
+					//Non-logged-in users
+					else {
+						$http.post("/api/orders", {
+							status: "Placed",
+							items: cart,
+							promo: promoCode, 
+							totalPrice: totalPrice,
+							email: nonLoggedInUser.email,
+							name: nonLoggedInUser.name,
+							streetName: nonLoggedInUser.street,
+							apt: nonLoggedInUser.apt,
+							city: nonLoggedInUser.city,
+							state: nonLoggedInUser.state,
+							zipCode: nonLoggedInUser.zip
+						})
+						.then(function() {
+							$state.go("thankYou");
+							localStorageService.clearAll();
+							$http.post("/api/thankyou", {name: nonLoggedInUser.name, email: nonLoggedInUser.email, cart: cart, totalPrice: totalPrice})
+						})												
+					}
+				})
 		}
 	}
 })

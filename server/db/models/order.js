@@ -12,7 +12,15 @@ var OrderSchema = new mongoose.Schema({
         	quantity: { type: Number, default: 1 }
 		}],
   promo:  { type: mongoose.Schema.Types.ObjectId, ref: 'Promo' },
-  totalPrice: { type: Number}
+  totalPrice: { type: Number },
+  //Email + Address for non logged in users:
+  email: { type: String },
+  name: { type: String },
+  streetName: { type: String },
+  apt: { type: String },
+  city: { type: String },
+  state: { type: String },
+  zipCode: { type: Number }
 });
 
 
@@ -28,6 +36,8 @@ var OrderSchema = new mongoose.Schema({
 
 
 //PRESAVE HOOK TO SAVE TOTAL SPENT 
+
+//Presave hook to make sure every order has address before we switch status to "Placed"
 
 
 module.exports = mongoose.model('Order', OrderSchema);
