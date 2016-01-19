@@ -30,56 +30,23 @@ app.factory('cartFactory', function($http, AuthService, localStorageService){
 					}
 				})
 		},
-
-		checkout: function(cart) {
-
-		},
 		getTotal: function(cart) {
 			var total = 0;
 			cart.forEach(function(item) {
 				total += item.item.price * item.quantity;
 			})
 			return total;
-		},
-		// getTotal: function(cart, code) {
-		// 	var total = 0;
-		// 	cart.forEach(function(item) {
-		// 		total += item.item.price * item.quantity;
-		// 	})
-		// 	if(code && code.includes("BUCKS")) {
-		// 		var dollarsOff = Number(code.replace("BUCKS", ""))
-		// 		var discountedPrice = total - dollarsOff
-		// 		return discountedPrice
-		// 	}
-		// 	if(code && code.includes("PERC")) {
-		// 		console.log("hitting")
-		// 		var percentOff = Number(code.replace("PERC", ""))
-		// 		var percentUserWillPay = (100 - percentOff) / 100
-		// 		// console.log(originalTotalPrice * percentUserWillPay)
-		// 		var discountedPrice = total * percentUserWillPay
-		// 		return discountedPrice
-		// 	}
-		// 	return total;
-		// },		
+		},		
 		applyPromo: function(code, originalTotalPrice) {
-			console.log("this is the promo code", code)
-			console.log("this is the originalTotalPrice", originalTotalPrice)
 			if(code.includes("BUCKS")) {
 				var dollarsOff = Number(code.replace("BUCKS", ""))
 				return originalTotalPrice - dollarsOff
 			}
 			if(code.includes("PERC")) {
-				console.log("hitting")
 				var percentOff = Number(code.replace("PERC", ""))
 				var percentUserWillPay = (100 - percentOff) / 100
-				console.log(originalTotalPrice * percentUserWillPay)
 				return originalTotalPrice * percentUserWillPay
 			}
 		}
 	}
 })
-
-//upon checkout:
-
-//send order to back end, and mark order complete as well as save totalPrice
-//then send email to user

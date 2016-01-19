@@ -14,3 +14,9 @@ app.controller('cartCtrl', function($scope, $state, cartFactory, localStorageSer
 		$scope.totalPrice = cartFactory.applyPromo(code, price)
 	}
 })
+
+
+//upon checkout:
+
+//send order to back end, and mark order complete as well as save totalPrice
+//then send email to user
