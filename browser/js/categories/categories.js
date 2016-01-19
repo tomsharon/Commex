@@ -9,8 +9,10 @@ app.config(function ($stateProvider) {
             }
         }
     })
+
 })
 
 app.controller('CategoriesCtrl', function ($scope, getItems){
   $scope.items = getItems
-})
+});
+

@@ -1,9 +1,15 @@
-app.controller('itemCtrl', function($scope, AuthService, itemDetails, reviews, itemFactory, $stateParams, $state){
+app.controller('itemCtrl', function($scope, AuthService, itemDetails, reviews, itemFactory, $stateParams, $state, $interval){
+
+
+	// console.log(itemDetails);
+	$scope.quantity = 1;
+
 	$scope.item = itemDetails;
 	$scope.reviews = reviews;
 	$scope.addToCart = itemFactory.addToCart;
 	$scope.available = itemDetails.inventory;
 	$scope.Range = function(start, end) {
+
     var result = [];
     for (var i = start; i <= end; i++) {
         result.push(i);
@@ -36,4 +42,14 @@ app.controller('itemCtrl', function($scope, AuthService, itemDetails, reviews, i
 				}
 		})
 	}
+
+	    var result = [];
+	    for (var i = start; i <= end; i++) {
+	        result.push(i);
+	    }
+	    return result;
+	    
 })
+
+
+

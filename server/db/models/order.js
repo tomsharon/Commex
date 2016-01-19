@@ -11,11 +11,24 @@ var OrderSchema = new mongoose.Schema({
   items: [{ item: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true },
         	quantity: { type: Number, default: 1 }
 		}],
-  promo:  { type: mongoose.Schema.Types.ObjectId, ref: 'Promo' }
-  // totalSpent: { type: Number, required: true }
+  promo:  { type: mongoose.Schema.Types.ObjectId, ref: 'Promo' },
+  totalPrice: { type: Number}
 });
 
 
-//Add totalSpent virtual
+// function getTotal() {
+//   var total = 0
+//   items.forEach(function(item) {
+//     total += item.item.price
+//   })
+//   return total;
+// }
+
+
+
+
+//PRESAVE HOOK TO SAVE TOTAL SPENT 
+
 
 module.exports = mongoose.model('Order', OrderSchema);
+
