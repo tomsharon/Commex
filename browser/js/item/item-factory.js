@@ -3,6 +3,12 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 		getItem: function(categoryName, itemId){
 			return $http.get('/api/categories/' + categoryName + '/' + itemId)
 		},
+		getReviews: function(reviewId){
+			return $http.get('api/reviews/' + reviewId);
+		},
+		addReview: function(review){
+			return $http.post('api/reviews/', review);
+		},
 		addToCart: function(itemId) {
 			var user;
 			AuthService.getLoggedInUser()
@@ -20,7 +26,19 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 								if(arrayOfOrders[0]) {
 
 									var updatedOrderItems = arrayOfOrders[0].items;
-									updatedOrderItems.push(itemId)
+									var alreadyInCart = false
+									updatedOrderItems.forEach(function(item) {
+										// console.log("this is item",item)
+										if(itemId === item.item._id) {
+											console.log(item);
+											alreadyInCart = true;
+											item.quantity += itemQuantity;
+										}
+									})
+
+									if(!alreadyInCart) {
+										updatedOrderItems.push({ item: itemId, quantity: itemQuantity });
+									}
 
 									return $http.put("/api/orders/" + arrayOfOrders[0]._id, {items: updatedOrderItems})
 										.then(function(response) {
@@ -31,11 +49,10 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 								}
 								//else, create new order and persist to DB
 								else {
-									console.log("Creating new order...")
-									return $http.post("/api/orders", {items: [itemId], user: user._id})
+									return $http.post("/api/orders", {items: [{ item: itemId, quantity: itemQuantity }], user: user._id})
 										.then(function(response) {
 											return response.data
-										})									
+										})
 								}
 							})
 					}
@@ -43,12 +60,22 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 					else {
 
 						var orders = localStorageService.get("orders")
+						var itemInfo = { item: itemId, quantity: itemQuantity };
+						var alreadyInLocalStorage = false;
 
 						if(!orders) {
-							localStorageService.set("orders", [itemId])
+							localStorageService.set("orders", [itemInfo])
 						}
 						else {
-							orders.push(itemId)
+							orders.forEach(function(item){
+								if(itemId === item.item){
+									alreadyInLocalStorage = true;
+									item.quantity += itemQuantity;
+								}
+							})
+							if (!alreadyInLocalStorage){
+								orders.push(itemInfo);
+							}
 							localStorageService.set("orders", orders)
 						}
 
@@ -57,7 +84,7 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 
 						//To clear local storage:
 						// return localStorageService.clearAll()
-					}				    
+					}
 				});
 		}
 	};

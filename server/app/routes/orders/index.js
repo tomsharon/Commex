@@ -9,7 +9,7 @@ router.get('/', function(req, res, next){
 	//else req.query is an empty object, so find all
 	// Order.find(req.query).exec()
 	console.log(req.query)
-	Order.find(req.query).populate("items").populate("user")
+	Order.find(req.query).populate("items.item").populate("user")
 	.then(function(results){
 		res.send(results);
 	});

@@ -1,6 +1,4 @@
 var mongoose = require('mongoose');
-var User = require('./user');
-var Item = require('./item');
 
 var ReviewSchema = new mongoose.Schema({
   reviewRating:       { type: Number, required: true },

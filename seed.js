@@ -62,13 +62,22 @@ function itemOrders(){
 function promoGenerator() {
   var allPromos = [];
   for (var i = 0; i < 25; i++) {
+    var promoCode = "";
     var promoType;
     var promoVal = starGenerator() * 5;
+    promoCode += promoVal;
     if (i % 2 === 0) { promoType = "percent" }
     else { promoType = "dollars" };
+    if (promoType === "dollars"){
+      promoCode += "BUCKS";
+    }
+    else {
+      promoCode += "PERC";
+    }
     allPromos.push(new Promo({
       type: promoType,
-      value: promoVal
+      value: promoVal,
+      code: promoCode
     }));
   }
   return Promo.createAsync(allPromos);
@@ -112,7 +121,7 @@ function randomGenerator(){
 }
 //Seed Items
 function seedItems (){
-  var items = [].concat(energyGenerator()).concat(metalGenerator()).concat(grainGenerator()).concat(oilseedsGenerator()).concat(softsGenerator()).concat(livestockGenerator())
+  var items = [].concat(energyGenerator()).concat(BaseMetalGenerator()).concat(grainGenerator()).concat(oilseedsGenerator()).concat(softsGenerator()).concat(livestockGenerator()).concat(PreciousMetalGenerator())
   return Item.createAsync(items);
 }
 //Seed Reviews
@@ -138,7 +147,8 @@ function seedOrders (){
   allOrders.forEach(function(order, idx){
     var items = [];
     allOrders[idx].forEach(function(order){
-      items.push(order._id);
+      var quantity = starGenerator();
+      items.push({item: order._id, quantity: quantity});
     });
     orders.push(new Order({
       user: storedUsers[idx]._id,
@@ -170,15 +180,15 @@ function energyGenerator () {
 }
 
 //Generate Metal Products
-function metalGenerator () {
-    var metals = ["Base Metals", " Precous Metals"]
+function BaseMetalGenerator () {
+    var metals = ["Copper", "Zinc", "Aluminium","Lead"]
 
     var result = [];
 
     for(var i = 0; i < metals.length; i++){
           result.push(new Item({
             itemName: metals[i],
-            category: 'Metal',
+            category: 'Base Metals',
             price: parseInt(randomGenerator()) * 10,
             unit: 'Metric Tons',
             inventory: parseInt(randomGenerator()) * 10,
@@ -188,6 +198,27 @@ function metalGenerator () {
     }
     return result;
 }
+
+function PreciousMetalGenerator () {
+    var preciousMetals = ["Gold","Silver","Platinum"]
+
+    var result = [];
+
+    for(var i = 0; i < preciousMetals.length; i++){
+          result.push(new Item({
+            itemName: preciousMetals[i],
+            category: 'Precious Metals',
+            price: parseInt(randomGenerator()) * 10,
+            unit: 'Metric Tons',
+            inventory: parseInt(randomGenerator()) * 10,
+            shortDescription: shortDescription,
+            longDescription: longDescription
+          }))
+    }
+    return result;
+}
+
+
 
 //Generate Grain Products
 function grainGenerator () {

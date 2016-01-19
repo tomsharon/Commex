@@ -76,15 +76,12 @@ app.config(function($stateProvider){
 			}
 		}
 	})
-	.state('createItem',{
+	.state('createItem', {
 		url: '/admin/items/create',
 		templateUrl: 'js/admin/items/create-item.html',
 		controller: 'createItemCtrl',
 		data: {
 			authenticate: true
-		},
-		resolve: {
-			console.log('hello');
 		}
 	})
 })

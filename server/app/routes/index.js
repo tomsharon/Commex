@@ -6,9 +6,9 @@ module.exports = router;
 router.use('/members', require('./members'));
 // /api/categories
 router.use('/categories', require('./categories'));
-// /api/orders
-router.use('/reviews', require('./reviews'));
 // /api/reviews
+router.use('/reviews', require('./reviews'));
+// /api/orders
 router.use('/orders', require('./orders'));
 // /api/items
 router.use('/items', require('./items'))
