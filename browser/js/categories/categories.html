@@ -1,11 +1,15 @@
 <section id="categories">
   <categories-nav></categories-nav>
-  <div ng-repeat="item in items | filter: currentCategory" class="items-container container">
-    <a>
-      <img src={{item.image}}>
-      <div class="item-name">
-        <h2>{{item.itemName}}</h2>
+  <div class="container">
+    <div class="row">
+      <div ng-repeat="item in items | filter: currentCategory" class="col-md-3 text-center categories">
+           <div class="col-md-12">
+             <img src="./images/{{item.itemName}}.jpg" height="100" width="100">
+             <br>
+             <hr>
+             <a ui-sref="item({itemId: item._id, categoryName: item.category})"><h4 class="price">{{item.itemName}}</h4></a>
+           </div>
       </div>
-    </a>
+    </div>
   </div>
 </section>

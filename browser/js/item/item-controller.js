@@ -1,7 +1,4 @@
 app.controller('itemCtrl', function($scope, AuthService, itemDetails, reviews, itemFactory, $stateParams, $state, $interval){
-
-
-	// console.log(itemDetails);
 	$scope.quantity = 1;
 
 	$scope.item = itemDetails;
@@ -20,7 +17,7 @@ app.controller('itemCtrl', function($scope, AuthService, itemDetails, reviews, i
 
 	AuthService.getLoggedInUser()
 	.then(function(user){
-		if(!user._id){
+		if(!user){
 			$scope.isLoggedIn = false
 		}else{
 			$scope.isLoggedIn = true
@@ -42,14 +39,4 @@ app.controller('itemCtrl', function($scope, AuthService, itemDetails, reviews, i
 				}
 		})
 	}
-
-	    var result = [];
-	    for (var i = start; i <= end; i++) {
-	        result.push(i);
-	    }
-	    return result;
-	    
 })
-
-
-
