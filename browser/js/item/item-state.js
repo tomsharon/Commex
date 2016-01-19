@@ -12,6 +12,15 @@ app.config(function($stateProvider){
 				.catch(null, function(error){
 					console.log(error);
 				})
+			},
+			reviews: function(itemFactory, $stateParams){
+				return itemFactory.getReviews($stateParams.itemId)
+				.then(function(review){
+					return review.data;
+				})
+				.catch(null, function(error){
+					console.log(error);
+				})
 			}
 		}
 	})
