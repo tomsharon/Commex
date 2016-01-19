@@ -9,7 +9,7 @@ app.factory('itemFactory', function($http, AuthService, localStorageService){
 		addReview: function(review){
 			return $http.post('api/reviews/', review);
 		},
-		addToCart: function(itemId) {
+		addToCart: function(itemId, itemQuantity) {
 			var user;
 			AuthService.getLoggedInUser()
 				.then(function (loggedInUser) {
