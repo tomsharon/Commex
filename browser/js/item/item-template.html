@@ -9,44 +9,51 @@
 		</li>
 		<li class="active">{{item.itemName}}</li>
 	</ol>
-<div class="container">
-	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemImage text-center">
-		Image Place holder{{image}}
-	</div>
-
-	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemDetails">
-		<h2 class="text-center">{{item.itemName}}</h2>
-		<hr>
-		<div ng-repeat='desc in item.shortDescription'>
-			<li><p>{{desc}}</p></li>
+	<div class="container">
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemImage text-center">
+			Image Place holder{{image}}
 		</div>
-		<button type="button" class="btn btn-info">
-			<i class="glyphicon glyphicon-shopping-cart"></i>
-			Add to Cart
-		</button>
+
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 itemDetails">
+			<h2 class="text-center">{{item.itemName}}</h2>
+			<hr>
+			<div ng-repeat='desc in item.shortDescription'>
+				<li>
+					<p>{{desc}}</p>
+				</li>
+			</div>
+			<button ng-click="addToCart(item._id)" type="button" class="btn btn-info">
+				<i class="glyphicon glyphicon-shopping-cart"></i> Add to Cart
+			</button>
+		</div>
 	</div>
-</div>
 
 	<br>
-	<div class="container-fluid">
+	<div class="container">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 description">
 			<h3 class="text-center">Description</h3>
 			<hr>
 			<p>{{item.longDescription}}</p>
 		</div>
-
-
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 reviews">
-		<h3 class="text-center">Reviews</h3>
-		<!-- use ng-repeat to populate reviews here -->
-		<p>{{reviews}}</p>
-		<hr>
-		<form>
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="What are your thoughts?">
+	</div>
+	<div class="container">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 reviews">
+			<h3 class="text-center">Reviews</h3>
+			<!-- use ng-repeat to populate reviews here -->
+			<div ng-repeat="review in reviews" class="description">
+				<p>{{review.reviewDescription}}</p>
 			</div>
-			<button type="submit" class="btn btn-info">Submit</button>
-		</form>
+			<br>
+			<hr>
+			<form name="add-review" ng-submit="submitReview(review)" ng-show="isLoggedIn">
+				<div class="form-group">
+					<input type="text" ng-model="review.reviewDescription" class="form-control" placeholder="What are your thoughts?">
+					<br>
+					<input type="number" ng-model="review.reviewRating" min="1" max="5" class="form-control" placeholder="Number Rating?">
+				</div>
+				<button type="submit" class="btn btn-info">Submit</button>
+			</form>
+		</div>
 	</div>
 </div>
  	<div class="form-group">
@@ -56,5 +63,5 @@
     </select>
 </div>
 		<button ng-click="addToCart(item._id, quantity)" class="btn btn-lg btn-primary">Add to cart</button>
-		<!-- <button ng-click="authclick()" class="btn btn-lg btn-primary">Add to cart</button> -->	
+		<!-- <button ng-click="authclick()" class="btn btn-lg btn-primary">Add to cart</button> -->
 </div>
