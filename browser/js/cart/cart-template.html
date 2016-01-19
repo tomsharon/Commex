@@ -1,5 +1,11 @@
 <h1>All items in cart:</h1>
-<div ng-repeat="item in cart"><p>Name: {{item.item.itemName}}</p> <p>Price: {{item.item.price}}</p> <p>Quantity: {{item.quantity}}</p></div>
+<div ng-repeat="item in cart"><p>Name: {{item.item.itemName}}</p> <p>Unit Price: {{item.item.price}}</p> <div class="form-group">
+  <label>Quantity:</label>
+  <input type="text" class="form-control" ng-model="itemQuantities[item.item._id]">
+  <p>Item subtotal:</p>
+  <p>{{item.item.price * itemQuantities[item.item._id]}}</p>
+  <button class="btn btn-sm btn-warning" ng-click="updateCart(item.item._id, itemQuantities[item.item._id])">update</button>
+</div></div>
 
 <br>
 

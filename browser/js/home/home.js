@@ -13,8 +13,9 @@ app.controller('HomeController', function ($scope, GetAllItems) {
   GetAllItems.getItems()
     .then(function(allItems){
       $scope.items = allItems;
+      $scope.featuredItems = $scope.items.slice(0,4)
+      $scope.latestItems = $scope.items.slice($scope.items.length-4,$scope.items.length)
     });
-
     $scope.currentCategory;
 });
 

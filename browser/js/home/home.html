@@ -3,56 +3,40 @@
   <div class="banner col-md-12"></div>
 
   <div class="container text-center">
-    <!-- Divs will be ng-repeat while length is less than 3 -->
     <div class="col-lg-4 features">
-      <img src="http://lorempixel.com/g/350/250/sports">
+      <a ui-sref="categories">
+      <img src="http://generalinsuranceagencies.com.au/assets/public/img/icons/icon_livestock.png" heigth="350" width="250">
+      <h3 class="promo-box">Live Stock</h3>
+    </a>
+    </div>
+  <div class="col-lg-4 features">
+    <a ui-sref="categories">
+      <img src="https://themrlenderblog.files.wordpress.com/2015/03/energy-icon.png" heigth="350" width="250">
+      <h3 class="promo-box">Energy</h3>
+      </a>
     </div>
     <div class="col-lg-4 features">
-      <img src="http://lorempixel.com/g/350/250/animals">
-    </div>
-    <div class="col-lg-4 features">
-      <img src="http://lorempixel.com/g/350/250/business">
+      <a ui-sref="categories">
+      <img src="http://www.durrell.org/library/files/01-agriculture-icon.png" heigth="350" width="250">
+      <h3 class="promo-box">Softs</h3>
+    </a>
     </div>
   </div>
 <hr>
   <div class="col-lg-12 text-center">
     <h3>FEATURED COMMODITIES</h3>
   </div>
-
   <!-- Divs will be ng-repeat while length is less than 4 -->
   <div class="container">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3" ng-repeat="items in featuredItems">
        <div class="col-md-12 featured-commodity">
-         <img class="text-center"src="http://lorempixel.com/230/350/sports">
+         <h5 class="text-center">{{items.itemName}}</h5>
+         <img class="text-center"src="./images/{{items.itemName}}.jpg" height="350" width="230">
          <hr>
-         <h4 class="price">$50.00</h4>
-         <i class="glyphicon glyphicon-circle-arrow-right"></i>
+         <h4 class="price">${{items.price}}</h4>
+         <a ui-sref="item({itemId: items._id, categoryName: items.category})"><i class="glyphicon glyphicon-circle-arrow-right"></i></a>
        </div>
-    </div>
-    <div class="col-md-3">
-      <div class="col-md-12 featured-commodity">
-        <img class="text-center"src="http://lorempixel.com/230/350/animals">
-        <hr>
-        <h4 class="price">$50.00</h4>
-        <i class="glyphicon glyphicon-circle-arrow-right"></i>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="col-md-12 featured-commodity">
-        <img class="text-center"src="http://lorempixel.com/230/350/business">
-        <hr>
-        <h4 class="price">$50.00</h4>
-        <i class="glyphicon glyphicon-circle-arrow-right"></i>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="col-md-12 featured-commodity">
-        <img class="text-center"src="http://lorempixel.com/230/350/sports">
-        <hr>
-        <h4 class="price">$50.00</h4>
-        <i class="glyphicon glyphicon-circle-arrow-right"></i>
-      </div>
     </div>
   </div>
 </div>
@@ -61,51 +45,24 @@
   <div class="col-lg-12 text-center">
     <h3>LATEST COMMODITIES</h3>
   </div>
-
   <!-- Divs will be ng-repeat while length is less than 4 -->
   <div class="container">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3" ng-repeat="items in latestItems">
        <div class="col-md-12 featured-commodity">
-         <img class="text-center"src="http://lorempixel.com/230/350/sports">
+         <h5 class="text-center">{{items.itemName}}</h5>
+         <img class="text-center"src="./images/{{items.itemName}}.jpg" height="350" width="230">
          <hr>
-         <h4 class="price">$50.00</h4>
-         <i class="glyphicon glyphicon-circle-arrow-right"></i>
+         <h4 class="price">${{items.price}}</h4>
+         <a ui-sref="item({itemId: items._id, categoryName: items.category})"><i class="glyphicon glyphicon-circle-arrow-right"></i></a>
        </div>
     </div>
-    <div class="col-md-3">
-      <div class="col-md-12 featured-commodity">
-        <img class="text-center"src="http://lorempixel.com/230/350/animals">
-        <hr>
-        <h4 class="price">$50.00</h4>
-        <i class="glyphicon glyphicon-circle-arrow-right"></i>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="col-md-12 featured-commodity">
-        <img class="text-center"src="http://lorempixel.com/230/350/business">
-        <hr>
-        <h4 class="price">$50.00</h4>
-        <i class="glyphicon glyphicon-circle-arrow-right"></i>
-
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="col-md-12 featured-commodity">
-        <img class="text-center"src="http://lorempixel.com/230/350/sports">
-        <hr>
-        <h4 class="price">$50.00</h4>
-        <i class="glyphicon glyphicon-circle-arrow-right"></i>
-      </div>
-    </div>
-  </div>
-</div>
-<br>
+<hr>
   <div class="container">
     <div class="email-signup col-md-12">
-        <h3>Email Newsletter Form</h3>
-        <button type="button" class="btn btn-default email-button">Sign Up</button>
-        <p>Sign up for our email newsletter today</p>
+        <h3>Coupon Code: 10PERCENT</h3>
+        <button type="button" class="btn btn-info email-button" ui-sref="login">Sign Up</button>
+        <p>The first one is on us...well kinda</p>
     </div>
   </div>
 

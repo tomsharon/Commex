@@ -1,15 +1,55 @@
 .itemDetails {
   border: 10px solid transparent;
   background-color: white;
+  border-radius: 8px;
 }
 
 .description{
+  border-radius: 8px;
   background: white;
+  border-radius: 8px;
 }
-.glyphicon-shopping-cart{
 
-}
-.btn-info{
+.add-to-cart{
   float: right;
   display: inline-block;
+  margin-top: 20px;
+}
+.quantity{
+  display: inline-block;
+}
+.single-review{
+
+}
+.reviews{
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.single-review{
+  background: white;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.review-description{
+  border-radius: 8px;
+  display:inline-block;
+}
+.form-desc{
+  border-radius: 8px;
+  margin-bottom: 5px;
+  display:inline-block;
+}
+.rating{
+  border-radius: 8px;
+  display:inline-block;
+  width: 6%;
+}
+
+.rating-btn{
+  float: right;
+  margin-bottom: 30px;
 }

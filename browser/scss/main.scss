@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   background: #F5F5F5;
 }
@@ -16,6 +15,11 @@ body {
 
 #main {
   margin: 0 auto;
+}
+
+.categories{
+  padding-top: 20px;
+  background-color: white;
 }
 
 @import 'directives/main';

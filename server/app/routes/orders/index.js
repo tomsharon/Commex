@@ -20,7 +20,10 @@ router.post('/', function(req, res, next){
 	Order.create(req.body)
 	.then(function(result){
 		res.status(201).send(result);
-	});
+	})
+	.then(null, function(error){
+		res.send(error);
+	})
 });
 
 //read one

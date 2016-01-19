@@ -1,23 +1,29 @@
-<nav class="navbar navbar-top">
-  <div class="container-fluid">
+<nav class="navbar navbar-default" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+
     </div>
+    <a class="navbar-brand" ui-sref="allItems">Commex</a>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-          <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-              <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-          </li>
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+
+      <ul class="nav navbar-nav navbar-left">
+        <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
+            <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+        </li>
       </ul>
-      <a class="navbar-brand" ui-sref="home">Commex</a>
       <ul class="nav navbar-nav navbar-right">
+        <li><button ng-show="!user" ui-sref="login" class="btn login-button">Login</button></li>
+        <li><div ng-show="user" class="welcome">
+            <span>Welcome, {{ user.name }}!</span>
+            <a ng-click="logout()">Logout</a>
+        </div></li>
         <li><a ui-sref='cart'>Cart</a></li>
         <li><form class="navbar-form" role="search">
           <div class="form-group">
@@ -26,11 +32,5 @@
           <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
         </form></li>
       </ul>
-      <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-      <div ng-show="user" class="welcome">
-          <span>Welcome, {{ user.name }}!</span>
-          <a ng-click="logout()">Logout</a>
-      </div>
     </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
 </nav>
