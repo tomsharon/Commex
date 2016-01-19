@@ -47,6 +47,11 @@ app.factory('cartFactory', function($http, AuthService, localStorageService){
 				var percentUserWillPay = (100 - percentOff) / 100
 				return originalTotalPrice * percentUserWillPay
 			}
+		},
+		checkOut: function(cart, totalPrice, promoCode) {
+			$http.post("/api/orders", {})
+			//pass in params as req.body
+			//problem is... how do we pass the user?
 		}
 	}
 })

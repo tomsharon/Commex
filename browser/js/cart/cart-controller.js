@@ -13,6 +13,8 @@ app.controller('cartCtrl', function($scope, $state, cartFactory, localStorageSer
 	$scope.applyPromo = function(code, price) {
 		$scope.totalPrice = cartFactory.applyPromo(code, price)
 	}
+
+	$scope.checkOut = cartFactory.checkOut
 })
 
 
