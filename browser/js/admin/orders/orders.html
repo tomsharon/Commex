@@ -1,0 +1,20 @@
+<section id="admin-panel">
+  <div class="col-xs-12 col-s-10 col-md-8 col-s-offset-1 col-md-offset-2">
+      <table style="width: 100%" class="text-center">
+        <tr style="background-color: grey">
+          <td>User Name</td>
+          <td>Date Ordered</td>
+          <td>Total Price</td>
+          <td>Edit</td>
+          <td>Delete</td>
+        </tr>
+        <tr ng-repeat="order in orders">
+          <td>{{ order.user.name }}</td>
+          <td>{{ order.dateOrdered }}</td>
+          <td>{{ order.totalPrice }}</td>
+          <td><button ui-sref="editOrder({ orderId: order._id })">Edit</button></td>
+          <td><button ng-click="deleteOrder({ orderId: order._id })">Delete</button></td>
+        </tr>
+      </table>
+  </div>
+</section>
