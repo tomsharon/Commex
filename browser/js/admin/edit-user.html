@@ -1,0 +1,40 @@
+<section id="edit-user">
+  <div class="col-xs-12 col-s-8 col-md-6 col-s-offset-2 col-md-offset-3">
+    <div class="text-center">
+      <h3>Edit User</h3>
+    </div>
+    <form name="userform" ng-submit="update(user)" role="form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="fullname" required="true" value="{{ user.name }}" ng-model="user.name" class="form-control"  class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" name="email" required="true" value="{{ user.email }}" ng-model="user.email" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="streetname">Street Name</label>
+        <input type="text" name="streetname" value="{{ user.streetName }}" ng-model="user.streetName" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" name="city" value="{{ user.city }}" ng-model="user.city" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="zipcode">Zipcode</label>
+        <input type="number" name="zipcode" value="{{ user.zipCode }}" ng-model="user.zipCode" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input type="text" name="state" value="{{ user.state }}" ng-model="user.state" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="isadmin">Admin?</label>
+        <select class="form-control" ng-model="user.isAdmin">
+          <option>False</option>
+          <option>True</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+  </div>
+</section>

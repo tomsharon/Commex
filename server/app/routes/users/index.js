@@ -29,20 +29,7 @@ router.get('/:userId', function(req, res, next){
 
 //update
 router.put('/:userId', function(req, res, next){
-	var updatedUser = new User({
-		email: req.body.email,
-		password: req.body.password,
-		name: req.body.name,
-		streetName: req.body.street,
-		city: req.body.city,
-		zipCode: req.body.zip,
-		state: req.body.state
-	})
-
-	var upsertUser = updatedUser.toObject();
-	delete updatedUser._id;
-
-	User.update({ _id: req.params.userId}, upsertUser, {upsert: true}, function(err) {
+	User.update({ _id: req.params.userId}, req.body, function(err) {
 		if(!err){
 			res.status(200).send();
 		} else {
