@@ -62,13 +62,22 @@ function itemOrders(){
 function promoGenerator() {
   var allPromos = [];
   for (var i = 0; i < 25; i++) {
+    var promoCode = "";
     var promoType;
     var promoVal = starGenerator() * 5;
+    promoCode += promoVal;
     if (i % 2 === 0) { promoType = "percent" }
     else { promoType = "dollars" };
+    if (promoType === "dollars"){
+      promoCode += "BUCKS";
+    }
+    else {
+      promoCode += "PERC";
+    }
     allPromos.push(new Promo({
       type: promoType,
-      value: promoVal
+      value: promoVal,
+      code: promoCode
     }));
   }
   return Promo.createAsync(allPromos);

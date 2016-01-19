@@ -1,12 +1,16 @@
-app.controller('cartCtrl', function($scope, $state, cartFactory){
-
+app.controller('cartCtrl', function($scope, $state, cartFactory, localStorageService){
+	
+	$scope.cart = []
 	cartFactory.getCart()
 		.then(function(cart) {
-			$scope.cart = cart
+			var quantities = localStorageService.get("quantityArray")
+			for(var i = 0; i < cart.length; i++) {
+				$scope.cart.push({item: cart[i], quantity: quantities[i]})
+			}
+			$scope.totalPrice = cartFactory.getTotal($scope.cart)
 		})
-	
 
-	//NEED TO .populate() for logged in users
-	//NEED TO AJAX request w/ itemID for non-logged in users
-
+	$scope.applyPromo = function(code, price) {
+		$scope.totalPrice = cartFactory.applyPromo(code, price)
+	}
 })

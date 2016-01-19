@@ -1,12 +1,12 @@
 <h1>All items in cart:</h1>
-<div ng-repeat="item in cart"><p>{{item}}</p></div>
+<div ng-repeat="item in cart"><p>Name: {{item.item.itemName}}</p> <p>Price: {{item.item.price}}</p> <p>Quantity: {{item.quantity}}</p></div>
 
-
-
-
-<h1>Cart itself:</h1>
-{{cart}}
-
-{{cart.totalPrice}}
 <br>
+
+<form>
+	<input type="text" ng-model="promoCode" placeholder="Enter Promo Code Here!">
+	<button ng-click="applyPromo(promoCode, totalPrice)">Apply!</button>
+</form>
+
 <button>Check Out</button>
+<div><p>Total Price: {{totalPrice}}</p></div>
