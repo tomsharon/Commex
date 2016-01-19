@@ -20,41 +20,50 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, localStorageS
         AuthService.login(loginInfo).then(function () {
             return AuthService.getLoggedInUser();
         })
-        // .then(function(user){
-        //     return $http.get("/api/orders?user=" + user._id + "&status=Incomplete");
-        // })
-        // .then(function(userOrder){
-        //     var orderId = userOrder.data[0]._id;
-        //     var userCart = userOrder.data[0].items;
-        //     var anonCart = localStorageService.get('orders');
-        //     if (userCart && anonCart){
-        //         userCart.forEach(function(item){
-        //             for(i = 0; i < anonCart.length; i++){
-        //                 var match = item.item;
-        //                 if(match === anonCart[i].item || match === anonCart[i].item._id){
-        //                     item.quantity += anonCart[i].quantity;
-        //                     anonCart[i].quantity = 0;
-        //                 }
-        //             }
-        //         })
-        //         anonCart.forEach(function(item){
-        //             if(item.quantity !== 0) {
-        //                 if(item.item._id){
-        //                     item.item = item.item._id;
-        //                 }
-        //                 userCart.push(item);
-        //             }
-        //         });
-        //     }
-        //     else if(){
-                
-        //     }
-        //     return $http.put("/orders/" + orderId, { items: userCart })
-        // })
+        .then(function(user){
+            return $http.get("/api/orders?user=" + user._id + "&status=Incomplete");
+        })
+        .then(function(userOrder){
+            console.log(userOrder);
+            var orderId = userOrder.data[0]._id;
+            var userCart = userOrder.data[0].items;
+            var anonCart = localStorageService.get('orders');
+            if (userCart && anonCart){
+                userCart.forEach(function(item){
+                    for(var i = 0; i < anonCart.length; i++){
+                        var match = item.item;
+                        if(match === anonCart[i].item || match === anonCart[i].item._id){
+                            item.quantity += anonCart[i].quantity;
+                            anonCart[i].quantity = 0;
+                        }
+                    }
+                })
+                anonCart.forEach(function(item){
+                    if(item.quantity !== 0) {
+                        if(item.item._id){
+                            item.item = item.item._id;
+                        }
+                        userCart.push(item);
+                    }
+                });
+            }
+            else if(anonCart){
+                anonCart.forEach(function(item){
+                    if(item.item._id){
+                        item.item = item.item._id;
+                    }
+                })
+                userCart = anonCart;
+            }
+            console.log("order id is");
+            console.log(orderId);
+            return $http.put("api/orders/" + orderId, { items: userCart })
+        })
         .then(function(){
             $state.go('allItems');
         })
-        .catch(function () {
+        .catch(function (error) {
+            console.log(error);
             $scope.error = 'Invalid login credentials.';
         });
 
