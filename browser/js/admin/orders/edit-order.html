@@ -1,0 +1,22 @@
+<section id="edit-order">
+  <div class="col-xs-12 col-s-8 col-md-6 col-s-offset-2 col-md-offset-3">
+    <div class="text-center">
+      <h3>Edit Order</h3>
+    </div>
+    {{ order }}
+    <form name="userform" ng-submit="update(order)" role="form">
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" ng-model="order.status">
+          <option>Incomplete</option>
+          <option>Placed</option>
+          <option>Shipped</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="user">User</label>
+        <input type="text" name="user" required="true" value="{{ order.user.name }}" ng-model="order.user.name" class="form-control"  class="form-control"/>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+  </div>
+</section>

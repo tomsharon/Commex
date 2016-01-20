@@ -6,12 +6,14 @@
           <td>Email</td>
           <td>Admin?</td>
           <td>Edit</td>
+          <td>Delete</td>
         </tr>
         <tr ng-repeat="user in users">
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.isAdmin }}</td>
           <td><button ui-sref="editUser({ userId: user._id })">Edit</button></td>
+          <td><button ng-click="deleteUser({userId: user._id})">Delete</button></td>
         </tr>
       </table>
   </div>

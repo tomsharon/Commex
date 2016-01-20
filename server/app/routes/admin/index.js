@@ -3,14 +3,7 @@ var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
 
-var ensureAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()) {
-        next();
-    } else {
-        res.status(401).end();
-    }
-};
-
-router.get('/', ensureAuthenticated, function (req, res, next) {
+router.get('/', function (req, res, next) {
+  console.log('Inside /admin')
   res.status(200).send()
 });
