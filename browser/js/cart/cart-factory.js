@@ -83,7 +83,7 @@ app.factory('cartFactory', function($http, AuthService, localStorageService, $st
 					}
 				})
 		},
-		checkOut: function(cart, totalPrice, promoCode, nonLoggedInUser, orderId) {
+		checkOut: function(cart, totalPrice, promoCode, nonLoggedInUser) {
 			// console.log("this is the cart", cart)
 			var user;
 			AuthService.getLoggedInUser()
@@ -91,7 +91,7 @@ app.factory('cartFactory', function($http, AuthService, localStorageService, $st
 					user = loggedInUser
 					//Logged in users:
 					if(user) {
-						$http.put("/api/orders/" + orderId, {
+						$http.put("/api/orders/" + cart[0]._id, {
 							status: "Placed",
 							user: user,
 							items: cart,
@@ -101,6 +101,8 @@ app.factory('cartFactory', function($http, AuthService, localStorageService, $st
 						.then(function() {
 							$state.go("thankYou");
 							$http.post("/api/thankyou", {name: user.name, email: user.email, cart: cart, totalPrice: totalPrice})
+						}, function(err) {
+							console.error(err)
 						})
 					}
 					//Non-logged-in users
