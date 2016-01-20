@@ -45,7 +45,7 @@ router.post('/', ensureAuthenticated, function(req, res){
 //read one
 router.get('/:orderId', ensureAuthenticated, function(req, res, next){
 
-	Order.findOne({ _id: req.params.orderId } ).exec()
+	Order.findOne({ _id: req.params.orderId } ).populate("user").populate("items.item").exec()
 	.then(function(result){
 		if(req.user._id == result.user || req.user.isAdmin){
 			res.send(result);

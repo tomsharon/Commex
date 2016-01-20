@@ -69,10 +69,10 @@ function promoGenerator() {
     if (i % 2 === 0) { promoType = "percent" }
     else { promoType = "dollars" };
     if (promoType === "dollars"){
-      promoCode += "BUCKS";
+      promoCode = "BUCKS" + promoVal;
     }
     else {
-      promoCode += "PERC";
+      promoCode = "PERC" + promoVal;
     }
     allPromos.push(new Promo({
       type: promoType,

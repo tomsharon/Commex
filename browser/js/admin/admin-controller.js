@@ -6,5 +6,4 @@ app.controller('adminCtrl', function($scope, allUsers, adminFactory, $state){
       $state.reload();
     })
   }
-
 })

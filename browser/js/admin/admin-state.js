@@ -111,4 +111,70 @@ app.config(function($stateProvider){
 			}
 		}
 	})
+	.state('editOrder', {
+		url: '/admin/orders/:orderId',
+		templateUrl: 'js/admin/orders/edit-order.html',
+		controller: 'editOrderCtrl',
+		data: {
+			authenticate: true
+		},
+		resolve: {
+			getOrder: function(adminFactory, $stateParams){
+				return adminFactory.getOrder($stateParams.orderId)
+				.then(function(order){
+					return order.data
+				})
+				.catch(null, function(error){
+					console.log(error)
+				})
+			}
+		}
+	})
+	.state('promos', {
+		url: '/admin/promos',
+		templateUrl: 'js/admin/promos/promo.html',
+		controller: 'promosCtrl',
+		data: {
+			authenticate: true
+		},
+		resolve: {
+			allPromos: function(adminFactory){
+				return adminFactory.getAllPromos()
+				.then(function(promos){
+					console.log(promos.data)
+					return promos.data
+				})
+				.catch(null, function(error){
+					console.log(error)
+				})
+			}
+		}
+	})
+	.state('editPromo', {
+		url: '/admin/promos/:promoId',
+		templateUrl: 'js/admin/promos/edit-promo.html',
+		controller: 'editPromoCtrl',
+		data: {
+			authenticate: true
+		},
+		resolve: {
+			getPromo: function(adminFactory, $stateParams){
+				return adminFactory.getPromo($stateParams.promoId)
+				.then(function(promo){
+					return promo.data
+				})
+				.catch(null, function(error){
+					console.log(error)
+				})
+			}
+		}
+	})
+	.state('createPromo', {
+		url: '/admin/createpromo',
+		templateUrl: 'js/admin/promos/create-promo.html',
+		controller: 'createPromoCtrl',
+		data: {
+			authenticate: true
+		}
+	})
 })
