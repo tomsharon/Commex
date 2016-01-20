@@ -11,10 +11,14 @@ app.controller('cartCtrl', function($scope, $state, cartFactory, localStorageSer
 	$scope.cart = []
 	cartFactory.getCart()
 		.then(function(cart) {
-			var quantities = localStorageService.get("quantityArray")
-			for(var i = 0; i < cart.length; i++) {
-				$scope.cart.push({item: cart[i], quantity: quantities[i]})
-				console.log("This is $scope.cart", $scope.cart)
+			if($scope.user) $scope.cart = cart 
+			if(!$scope.user) {
+				var quantities = localStorageService.get("quantityArray")
+				for(var i = 0; i < cart.length; i++) {
+
+					$scope.cart.push({item: cart[i], quantity: quantities[i]})
+					console.log("This is $scope.cart", $scope.cart)
+				}
 			}
 			$scope.totalPrice = cartFactory.getTotal($scope.cart)
 		})
