@@ -49,16 +49,21 @@ router.get('/:userId', function(req, res, next){
 
 //update
 router.put('/:userId', ensureAuthenticated, function(req, res){
-	User.update({ _id: req.params.userId}, req.body, function(err) {
-		if(!err){
-			res.status(200).send();
-		} else {
-			console.error(err);
-			res.status(404).send();
-		}
-	});
-
-
+  User.findOne({_id: req.params.userId}).exec()
+  .then(function(user){
+    if(req.user._id == req.params.userId || req.user.isAdmin){
+      User.update({ _id: req.params.userId}, req.body, function(err) {
+        if(!err){
+          res.status(200).send();
+        } else {
+          console.error(err);
+          res.status(404).send();
+        }
+      });
+    } else {
+      res.status(401).send()
+    }
+  })
 });
 
 //delete
