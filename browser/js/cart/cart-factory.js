@@ -14,7 +14,7 @@ app.factory('cartFactory', function($http, AuthService, localStorageService, $st
 						console.log("there was a user! gonna grab his orders");
 						return $http.get("/api/orders?user=" + user._id + "&status=Incomplete")
 							.then(function(response) {
-								return response.data[0];
+								return response.data[0].items;
 							})
 
 					}

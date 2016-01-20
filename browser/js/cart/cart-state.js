@@ -4,4 +4,4 @@ app.config(function($stateProvider){
 		templateUrl: 'js/cart/cart-template.html',
 		controller: 'cartCtrl'
 	})
-})
+});
