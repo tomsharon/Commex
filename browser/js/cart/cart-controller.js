@@ -38,39 +38,14 @@ app.controller('cartCtrl', function($scope, $state, cartFactory, localStorageSer
 	}
 	cartFactory.getCart()
 		.then(function(cart) {
-			var quantities = localStorageService.get("quantityArray")
-			for(var i = 0; i < cart.length; i++) {
-				$scope.cart.push({item: cart[i], quantity: quantities[i]})
-				console.log("This is $scope.cart", $scope.cart)
+			if($scope.user) $scope.cart = cart 
+			if(!$scope.user) {
+				var quantities = localStorageService.get("quantityArray")
+				for(var i = 0; i < cart.length; i++) {
 
-		.then(function(order) {
-			console.log("cartFactory.getCart() was invoked!")
-			if(!order){
-				console.log("not doing anything with order, as it is null")
-				//there is no logged in user and the unauthenticated user has no items
-				return;
-			}
-			$scope.orderId = order._id;
-			var quantities = localStorageService.get("quantityArray");
-			if(quantities){
-				console.log("there's stuff on local storage, we'll user that for cart")
-				for(var i = 0; i < order.length; i++){
-					$scope.itemQuantities[order[i]._id] = quantities[i];
-					$scope.cart.push({item: order[i], quantity: quantities[i]});
+					$scope.cart.push({item: cart[i], quantity: quantities[i]})
+					console.log("This is $scope.cart", $scope.cart)
 				}
-				console.log("actual before cart")
-				console.log($scope.cart)
-			}
-			else{
-				console.log("gonna grab those items we got from the request, since a user is logged in")
-				for(var i = 0; i < order.items.length; i++){
-					$scope.itemQuantities[order.items[i].item._id] = order.items[i].quantity;
-					console.log(order.items[i]);
-					console.log("adding quantity " + order.items[i].quantity + " for key " + order.items[i].item._id);
-					$scope.cart.push(order.items[i]);
-				}
-				console.log($scope.itemQuantities);
-
 			}
 			console.log("cart is");
 			console.log($scope.cart);
