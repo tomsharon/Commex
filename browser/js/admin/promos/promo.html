@@ -1,0 +1,24 @@
+<section id="admin-panel">
+  <div class="col-xs-12 col-s-10 col-md-8 col-s-offset-1 col-md-offset-2">
+      <table style="width: 100%" class="text-center">
+        <tr style="background-color: grey">
+          <td>Type</td>
+          <td>Value</td>
+          <td>Created</td>
+          <td>Expires</td>
+          <td>Code</td>
+          <td>Edit</td>
+          <td>Delete</td>
+        </tr>
+        <tr ng-repeat="promo in promos">
+          <td>{{ promo.type }}</td>
+          <td>{{ promo.value }}</td>
+          <td>{{ promo.created }}</td>
+          <td>{{ promo.expires }}</td>
+          <td>{{ promo.code }}</td>
+          <td><button ui-sref="editPromo({ promoId: promo._id })">Edit</button></td>
+          <td><button ng-click="deletePromo({ promoId: promo._id })">Delete</button></td>
+        </tr>
+      </table>
+  </div>
+</section>

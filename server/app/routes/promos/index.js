@@ -13,7 +13,7 @@ router.get('/', function(req, res, next){
 
 //create
 router.post('/', function(req, res, next){
-	Promo.create(req.body).exec()
+	Promo.create(req.body)
 	.then(function(result){
 		res.status(201).send(result);
 	});
@@ -56,6 +56,7 @@ router.put('/:promoId', function(req, res, next){
 
 //delete
 router.delete('/:promoId', function(req, res, next){
+	console.log(req.params);
 	Promo.findOne({ _id: req.params.promoId } ).remove().exec()
 	.then(function(result){
 		res.sendStatus(200);

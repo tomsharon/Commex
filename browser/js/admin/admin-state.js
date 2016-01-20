@@ -8,7 +8,7 @@ app.config(function($stateProvider){
 			authenticate: true
 		},
 		resolve: {
-			allUsers: function(adminFactory, $stateParams){
+			allUsers: function(adminFactory){
 				return adminFactory.getAllUsers()
 				.then(function(users){
 					return users.data;
@@ -21,7 +21,7 @@ app.config(function($stateProvider){
 	})
   .state('editUser', {
     url: '/admin/edituser/:userId',
-    templateUrl: 'js/admin/edit-user.html',
+    templateUrl: 'js/admin/users/edit-user.html',
     controller: 'editUserCtrl',
 		data: {
 			authenticate: true
@@ -38,6 +38,14 @@ app.config(function($stateProvider){
       }
     }
   })
+	.state('createUser', {
+		url: '/admin/createuser',
+		templateUrl: 'js/admin/users/create-user.html',
+		controller: 'createUserCtrl',
+		data: {
+			authenticate: true
+		}
+	})
 	.state('items', {
 		url: '/admin/items',
 		templateUrl: 'js/admin/items/items.html',
@@ -46,7 +54,7 @@ app.config(function($stateProvider){
 			authenticate: true
 		},
 		resolve: {
-			allItems: function(adminFactory, $stateParams){
+			allItems: function(adminFactory){
 				return adminFactory.getAllItems()
 				.then(function(items){
 					return items.data;
@@ -77,9 +85,94 @@ app.config(function($stateProvider){
 		}
 	})
 	.state('createItem', {
-		url: '/admin/items/create',
+		url: '/admin/createitem',
 		templateUrl: 'js/admin/items/create-item.html',
 		controller: 'createItemCtrl',
+		data: {
+			authenticate: true
+		}
+	})
+	.state('orders', {
+		url: '/admin/orders',
+		templateUrl: 'js/admin/orders/orders.html',
+		controller: 'ordersCtrl',
+		data: {
+			authenticate: true
+		},
+		resolve: {
+			allOrders: function(adminFactory){
+				return adminFactory.getAllOrders()
+				.then(function(orders){
+					return orders.data;
+				})
+				.catch(null, function(error){
+					console.log(error);
+				})
+			}
+		}
+	})
+	.state('editOrder', {
+		url: '/admin/orders/:orderId',
+		templateUrl: 'js/admin/orders/edit-order.html',
+		controller: 'editOrderCtrl',
+		data: {
+			authenticate: true
+		},
+		resolve: {
+			getOrder: function(adminFactory, $stateParams){
+				return adminFactory.getOrder($stateParams.orderId)
+				.then(function(order){
+					return order.data
+				})
+				.catch(null, function(error){
+					console.log(error)
+				})
+			}
+		}
+	})
+	.state('promos', {
+		url: '/admin/promos',
+		templateUrl: 'js/admin/promos/promo.html',
+		controller: 'promosCtrl',
+		data: {
+			authenticate: true
+		},
+		resolve: {
+			allPromos: function(adminFactory){
+				return adminFactory.getAllPromos()
+				.then(function(promos){
+					console.log(promos.data)
+					return promos.data
+				})
+				.catch(null, function(error){
+					console.log(error)
+				})
+			}
+		}
+	})
+	.state('editPromo', {
+		url: '/admin/promos/:promoId',
+		templateUrl: 'js/admin/promos/edit-promo.html',
+		controller: 'editPromoCtrl',
+		data: {
+			authenticate: true
+		},
+		resolve: {
+			getPromo: function(adminFactory, $stateParams){
+				return adminFactory.getPromo($stateParams.promoId)
+				.then(function(promo){
+					return promo.data
+				})
+				.catch(null, function(error){
+					console.log(error)
+				})
+			}
+		}
+	})
+	.state('createPromo', {
+		url: '/admin/createpromo',
+		templateUrl: 'js/admin/promos/create-promo.html',
+		controller: 'createPromoCtrl',
 		data: {
 			authenticate: true
 		}

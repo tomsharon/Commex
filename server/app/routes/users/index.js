@@ -1,10 +1,26 @@
 'use strict';
 var router = require('express').Router();
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
+var User = require("../../../db/models/user");
+
+var ensureAuthenticated = function (req, res, next) {
+    if (req.isAuthenticated() || req.user.isAdmin) {
+        next();
+    } else {
+        res.status(401).end();
+    }
+};
+
+var ensureAdmin = function(req, res, next){
+	if (req.user.isAdmin){
+		next();
+	} else {
+		res.status(401).end();
+	}
+}
 
 //read all
-router.get('/', function(req, res, next){
+router.get('/', ensureAdmin, function(req, res, next){
 	User.find().exec()
 	.then(function(results){
 		res.send(results);
@@ -13,7 +29,7 @@ router.get('/', function(req, res, next){
 
 //create
 router.post('/', function(req, res, next){
-	User.create(req.body).exec()
+	User.create(req.body)
 	.then(function(result){
 		res.status(201).send(result);
 	});
@@ -21,14 +37,18 @@ router.post('/', function(req, res, next){
 
 //read one
 router.get('/:userId', function(req, res, next){
-	User.findOne({ _id: req.params.userId } ).exec()
-	.then(function(result){
-		res.send(result);
-	});
+	if(req.user._id == req.params.userId || req.user.isAdmin){
+		User.findOne({ _id: req.params.userId } ).exec()
+		.then(function(result){
+			res.send(result);
+		});
+	} else {
+		res.status(401).send()
+	}
 });
 
 //update
-router.put('/:userId', function(req, res, next){
+router.put('/:userId', ensureAuthenticated, function(req, res){
 	User.update({ _id: req.params.userId}, req.body, function(err) {
 		if(!err){
 			res.status(200).send();
@@ -42,7 +62,7 @@ router.put('/:userId', function(req, res, next){
 });
 
 //delete
-router.delete('/:userId', function(req, res, next){
+router.delete('/:userId', ensureAdmin, function(req, res){
 	User.findOne({ _id: req.params.userId } ).remove().exec()
 	.then(function(result){
 		res.sendStatus(200);
