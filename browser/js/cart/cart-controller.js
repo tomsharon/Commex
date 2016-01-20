@@ -1,17 +1,20 @@
 app.controller('cartCtrl', function($scope, $state, cartFactory, localStorageService, AuthService){
-	
+
 	AuthService.getLoggedInUser()
 		.then(function(loggedInUser) {
 			$scope.user = loggedInUser
 			console.log("this is user", $scope.user)
 		})
 
-	$scope.nonLoggedInUser = {};	
+	$scope.nonLoggedInUser = {};
 
 	$scope.cart = []
 	cartFactory.getCart()
 		.then(function(cart) {
-			if($scope.user) $scope.cart = cart 
+			if($scope.user) {
+				$scope.cart = cart
+				console.log("THIS IS USER'S CART TOM", $scope.cart)
+		}
 			if(!$scope.user) {
 				console.log("PLEASE")
 				var quantities = localStorageService.get("quantityArray")
@@ -36,7 +39,7 @@ app.controller('cartCtrl', function($scope, $state, cartFactory, localStorageSer
 })
 
 //for non-logged in users, clear localStorage
-//for logged in users. 
+//for logged in users.
 
 
 //upon checkout:

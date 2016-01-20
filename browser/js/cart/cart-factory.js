@@ -60,7 +60,7 @@ app.factory('cartFactory', function($http, AuthService, localStorageService, $st
 				total += item.item.price * item.quantity;
 			})
 			return total;
-		},		
+		},
 		applyPromo: function(code, originalTotalPrice) {
 			// if(code.includes("BUCKS")) {
 			// 	var dollarsOff = Number(code.replace("BUCKS", ""))
@@ -91,11 +91,12 @@ app.factory('cartFactory', function($http, AuthService, localStorageService, $st
 					user = loggedInUser
 					//Logged in users:
 					if(user) {
+						console.log("THIS IS THE CART",cart)
 						$http.put("/api/orders/" + cart[0]._id, {
 							status: "Placed",
 							user: user,
 							items: cart,
-							promo: promoCode, 
+							promo: promoCode,
 							totalPrice: totalPrice
 						})
 						.then(function() {
@@ -110,7 +111,7 @@ app.factory('cartFactory', function($http, AuthService, localStorageService, $st
 						$http.post("/api/orders", {
 							status: "Placed",
 							items: cart,
-							promo: promoCode, 
+							promo: promoCode,
 							totalPrice: totalPrice,
 							email: nonLoggedInUser.email,
 							name: nonLoggedInUser.name,
@@ -124,7 +125,7 @@ app.factory('cartFactory', function($http, AuthService, localStorageService, $st
 							$state.go("thankYou");
 							localStorageService.clearAll();
 							$http.post("/api/thankyou", {name: nonLoggedInUser.name, email: nonLoggedInUser.email, cart: cart, totalPrice: totalPrice})
-						})												
+						})
 					}
 				})
 		}
